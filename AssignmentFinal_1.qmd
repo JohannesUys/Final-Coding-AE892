@@ -1,0 +1,218 @@
+---
+title: "772-892 Agricultural Economics Assignment (2025)"
+author: "Johannes Frederik Uys"
+course: "Agricultural Economics 772-892"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-summary: "Show code"
+    theme: cosmo
+---
+
+# 772-892 Agricultural Economics Assignment (2025)
+
+Now that you have improved your **R programming** skills, you must apply them.  
+
+---
+
+## Step 1: Get your data  
+
+- Acquire at least two datasets that contain at least 50 observations each. This can be your own data or data acquired from an online source. Note that you need to join two or more datasets – hence, they need to have a set of suitable ID variables. And the joined dataset must have at least six variables, excluding the join columns.  
+
+- Refer to the list of databases below for your options. Note that you need to provide the dataset's source, and you are not allowed to manipulate the dataset in Excel in any way – all manipulation must be done using **R**.  
+
+- If you struggle to find a suitable dataset, come see me.  
+
+---
+
+## Step 2: Now that you have the data, you need to do the following  
+
+1. **[5 marks]** Clearly and concisely state your **research question** that you are trying to answer or enlighten using the steps below. This step does not involve coding. 
+
+    This analysis explores whether rising digital connectivity has been associated with the structural reallocation of economic activity from agriculture to services in developing economies, using World Bank indicators between 1990 and 2023.
+
+2. **[5 marks]** You must **clean the datasets** in preparation for joining.  
+   a. Import the datasets  
+   b. Reshape the data if needed  
+   c. Ensure all vectors are in the correct format  
+   d. Ensure that all variable names are in lowercase and that they do not contain any special characters, except for spaces that need to be replaced with underscores `_`.  
+   e. Join the two or more datasets to create the dataframe called **df**. Larger datasets will get more marks than smaller ones.  
+
+```{python}
+#Import World Bank Data
+
+import pandas as pd
+
+# Define data folder
+RAW_DIR = "data/raw"
+
+# Function to read and reshape World Bank CSVs
+def read_wb_api_csv(path, value_name):
+    df = pd.read_csv(path, skiprows=4)
+    df = df.rename(columns={"Country Name": "country", "Country Code": "iso3c"})
+    year_cols = [c for c in df.columns if c.isdigit()]
+    df = df.melt(id_vars=["country", "iso3c"], value_vars=year_cols,
+                 var_name="year", value_name=value_name)
+    df["year"] = df["year"].astype(int)
+    df[value_name] = pd.to_numeric(df[value_name], errors="coerce")
+    return df
+
+# Load all required indicators
+pop = read_wb_api_csv(f"{RAW_DIR}/API_SP.POP.TOTL_DS2_en_csv_v2_130083.csv", "pop")
+gdp_pc = read_wb_api_csv(f"{RAW_DIR}/API_NY.GDP.PCAP.CD_DS2_en_csv_v2_134819.csv", "gdp_pc")
+agr = read_wb_api_csv(f"{RAW_DIR}/API_NV.AGR.TOTL.ZS_DS2_en_csv_v2_128624.csv", "agr_share")
+srv = read_wb_api_csv(f"{RAW_DIR}/API_NV.SRV.TOTL.ZS_DS2_en_csv_v2_129290.csv", "srv_share")
+net = read_wb_api_csv(f"{RAW_DIR}/API_IT.NET.USER.ZS_DS2_en_csv_v2_129784.csv", "internet_users")
+mob = read_wb_api_csv(f"{RAW_DIR}/API_IT.CEL.SETS.P2_DS2_en_csv_v2_123929.csv", "mobile_subs")
+
+# Quick check
+for name, d in {"Population": pop, "GDP per capita": gdp_pc, "Agriculture": agr,
+                "Services": srv, "Internet": net, "Mobile": mob}.items():
+    print(f"{name:15} → {d.shape[0]} rows, {d['year'].nunique()} years")
+
+```
+
+```{python}
+# Basic Cleaning 
+YEARS = list(range(1990, 2024))
+
+# Ensure numeric values, Keep only the years we want 
+for df in [pop, gdp_pc, agr, srv, net, mob]:
+    df = df[df["year"].isin(YEARS)].copy()
+    value_col = df.columns[-1]
+    df[value_col] = pd.to_numeric(df[value_col], errors="coerce")
+
+    datasets = {
+    "Population": pop,
+    "GDP per capita": gdp_pc,
+    "Agriculture": agr,
+    "Services": srv,
+    "Internet": net,
+    "Mobile": mob
+}
+
+for name, df in datasets.items():
+    years = df["year"].unique()
+    print(f"{name:15} → {len(df):6,} rows | {df['year'].nunique():2} years "
+          f"(from {years.min()} to {years.max()})")
+
+
+```
+
+```{python}
+# merge datasets on country, iso3c, year
+df = pop.merge(gdp_pc, on=["country", "iso3c", "year"], how="outer") \
+        .merge(agr,     on=["country", "iso3c", "year"], how="outer") \
+        .merge(srv,     on=["country", "iso3c", "year"], how="outer") \
+        .merge(net,     on=["country", "iso3c", "year"], how="outer") \
+        .merge(mob,     on=["country", "iso3c", "year"], how="outer")
+
+# Tidy column order
+first_cols = ["country", "iso3c", "year"]
+df = df[first_cols + [c for c in df.columns if c not in first_cols]]
+
+# checks
+print(f"Rows: {len(df):,}")
+print(f"Countries: {df['iso3c'].nunique()} | Years: {df['year'].nunique()} "
+      f"({df['year'].min()}–{df['year'].max()})")
+
+# Share missing for key variables (0-1)
+key_vars = ["pop","gdp_pc","agr_share","srv_share","internet_users","mobile_subs"]
+missing = df[key_vars].isna().mean().sort_values().to_frame("share_missing")
+print("\nShare missing (0–1) for key variables:")
+print(missing)
+
+# Peek 
+df.head()
+```
+
+```{python}
+# Create df_dev for developing countries
+
+meta_path = "data/raw/Metadata_Country_API_NY.GDP.PCAP.CD_DS2_en_csv_v2_134819.csv"
+meta = pd.read_csv(meta_path, encoding="utf-8", engine="python")
+
+# Keep the key columns and rename
+meta = meta.rename(columns={
+    "Country Code": "iso3c",
+    "Region": "region",
+    "IncomeGroup": "income_group"
+})[["iso3c", "region", "income_group"]]
+
+# Merge the metadata into our main DataFrame
+df = df.merge(meta, on="iso3c", how="left")
+
+# Drop rows where region is missing
+df = df[df["region"].notna()].copy()
+
+# Clean income group text
+df["income_group"] = (
+    df["income_group"]
+    .astype(str)
+    .str.strip()
+    .str.replace("_", " ", regex=False)
+    .str.title()
+)
+
+# Exclude High-income economies
+df_dev = df[df["income_group"] != "High Income"].copy()
+
+# Results
+print(f"Rows after filtering: {len(df_dev):,}")
+print(f"Countries: {df_dev['iso3c'].nunique()} | Years: {df_dev['year'].nunique()} ({df_dev['year'].min()}–{df_dev['year'].max()})")
+df_dev["income_group"].value_counts()
+
+# preview
+df.head(10)
+
+```
+---
+
+
+## Step 3: Once you have joined the data to create `df`, do the following  
+
+3. **[5 marks]** You must create at least two new variables to be used in the subsequent steps.  
+
+4. **[30 marks]** Do a suitable **exploratory data analysis** on the data.  
+   - This should include at least three visualisations, but should not be limited to them.  
+   - Also, this section requires accompanying text to interpret the results.  
+
+5. **[15 marks]** Calculate the relevant **summary and other statistics** from the data.  
+
+6. **[15 marks]** Create at least two **useful plots** other than those of the exploratory data analysis.  
+
+7. **[15 marks]** Do a **statistical or regression analysis** of the data, which could be used for your thesis.  
+   - Marks will be given for suitability and originality.  
+
+8. **[10 marks]** These marks are allocated based on the **overall impression of your code**. The following will be considered:  
+   a. Does your code run without a problem?  
+   b. How clear and concise your code is  
+   c. Are code blocks broken up and well-described  
+
+---
+
+### **Total: 100 marks**
+
+The original data and the accompanying code must be shared with me on **OneDrive**.  
+If your code fails to run, I will require you to fix it.  
+
+> Two marks will be subtracted per day for late submissions.  
+> **Due date:** 27 October, 23:59  
+
+---
+
+## Databases  
+
+- [World Bank Databank](https://databank.worldbank.org/)  
+- [FAO Stat](https://www.fao.org/faostat/en/)  
+- [Trademap](https://www.trademap.org/Index.aspx)  
+- [OECD Databank](https://www.oecd.org/en/data.html)  
+- [IMF Data Portal](https://data.imf.org/?sk=388dfa60-1d26-4ade-b505-a05a558d9a42)  
+- [UN Data Portal](https://population.un.org/dataportal/)  
+- [South African Reserve Bank Data](https://www.resbank.co.za/en/home/what-we-do/statistics/releases/online-statistical-query)  
+- [EU Data Portal](https://data.europa.eu/en)  
+- [Google Dataset Search](https://datasetsearch.research.google.com/)  
+
+---
