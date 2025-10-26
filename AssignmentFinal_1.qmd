@@ -175,9 +175,103 @@ df.head(10)
 
 3. **[5 marks]** You must create at least two new variables to be used in the subsequent steps.  
 
+```{python}
+# 3) Creating new variables 
+import numpy as np
+
+# Normalise digital indicators (0–1 range) to make them comparable
+for var in ["internet_users", "mobile_subs"]:
+    df_dev[var + "_norm"] = (
+        (df_dev[var] - df_dev[var].min()) /
+        (df_dev[var].max() - df_dev[var].min())
+    )
+
+# Combined digital adoption index
+df_dev["digital_intensity"] = df_dev[["internet_users_norm", "mobile_subs_norm"]].mean(axis=1)
+
+# Log GDP per capita 
+df_dev["log_gdp_pc"] = np.log(df_dev["gdp_pc"])
+
+# Services Ratio to Agriculture
+df_dev["service_ratio"] = (
+    df_dev["srv_share"] /
+    (df_dev["srv_share"] + df_dev["agr_share"])
+)
+
+# Digital adoption growth rate (year-on-year % change per country)
+
+df_dev = df_dev.sort_values(["country", "year"])
+df_dev["digital_growth"] = (
+    df_dev.groupby("country")["digital_intensity"]
+          .pct_change() * 100
+)
+
+
+# Total GDP (current US$)
+df_dev["gdp_total_usd"] = df_dev["pop"] * df_dev["gdp_pc"]
+
+# Agriculture GDP (current US$)
+df_dev["agri_gdp_usd"] = df_dev["gdp_total_usd"] * (df_dev["agr_share"] / 100)
+
+# Services GDP (current US$)
+df_dev["services_gdp_usd"] = df_dev["gdp_total_usd"] * (df_dev["srv_share"] / 100)
+
+# Preview
+df_dev[df_dev["year"] == 2005]
+
+
+```
+
 4. **[30 marks]** Do a suitable **exploratory data analysis** on the data.  
    - This should include at least three visualisations, but should not be limited to them.  
    - Also, this section requires accompanying text to interpret the results.  
+
+```{python}
+import matplotlib.pyplot as plt
+
+# Compute yearly averages and restrict to 1990–2023
+trend = (
+    df_dev.groupby("year")[["agr_share", "srv_share", "digital_intensity"]]
+          .mean()
+          .reset_index()
+)
+trend = trend[trend["year"].between(1990, 2023)]
+
+# Create the plot
+fig, ax1 = plt.subplots(figsize=(10,6))
+
+# Left axis 
+ax1.plot(trend["year"], trend["agr_share"], label="Agriculture (% of GDP)", 
+         color="#2E86C1", linewidth=2)
+ax1.plot(trend["year"], trend["srv_share"], label="Services (% of GDP)", 
+         color="#27AE60", linewidth=2)
+ax1.set_ylabel("Share of GDP (%)", fontsize=11, color="#34495E")
+ax1.tick_params(axis="y", labelcolor="#34495E")
+ax1.set_xlim(1990, 2023)
+
+# Right axis 
+ax2 = ax1.twinx()
+ax2.plot(trend["year"], trend["digital_intensity"]*100, 
+         label="Digital Intensity (0–100)", 
+         color="#E67E22", linestyle="--", linewidth=2)
+ax2.set_ylabel("Digital Intensity (Scaled 0–100)", fontsize=11, color="#E67E22")
+ax2.tick_params(axis="y", labelcolor="#E67E22")
+
+# Titles and layout
+plt.title("Structural Transformation and Digital Adoption in Developing Economies (1990–2023)",
+          fontsize=13, pad=15)
+ax1.set_xlabel("Year")
+fig.tight_layout()
+
+# Combined legend
+lines_1, labels_1 = ax1.get_legend_handles_labels()
+lines_2, labels_2 = ax2.get_legend_handles_labels()
+ax1.legend(lines_1 + lines_2, labels_1 + labels_2, loc="upper left", frameon=False)
+
+plt.show()
+
+
+```
 
 5. **[15 marks]** Calculate the relevant **summary and other statistics** from the data.  
 
