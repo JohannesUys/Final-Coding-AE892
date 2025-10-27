@@ -4,14 +4,11 @@ author: "Johannes Frederik Uys"
 course: "Agricultural Economics 772-892"
 format:
   html:
-    toc: true
-    toc-depth: 3
     code-fold: true
     code-summary: "Show code"
     theme: cosmo
 ---
 
-# 772-892 Agricultural Economics Assignment (2025)
 
 Now that you have improved your **R programming** skills, you must apply them.  
 
@@ -41,7 +38,13 @@ Now that you have improved your **R programming** skills, you must apply them.
    e. Join the two or more datasets to create the dataframe called **df**. Larger datasets will get more marks than smaller ones.  
 
 ```{python}
-#Import World Bank Data
+# Install packages needed to run
+%pip install pandas numpy scipy matplotlib seaborn
+```
+```{python}
+print("=" * 80)
+print("Import World Bank Data")
+print("=" * 80)
 
 import pandas as pd
 
@@ -75,7 +78,9 @@ for name, d in {"Population": pop, "GDP per capita": gdp_pc, "Agriculture": agr,
 ```
 
 ```{python}
-# Basic Cleaning 
+print("=" * 80)
+print("Basic Cleaning")
+print("=" * 80)
 YEARS = list(range(1990, 2024))
 pop = pop[pop["year"].isin(YEARS)].copy()
 gdp_pc = gdp_pc[gdp_pc["year"].isin(YEARS)].copy()
@@ -108,7 +113,9 @@ for name, df in datasets.items():
 ```
 
 ```{python}
-# merge datasets on country, iso3c, year
+print("=" * 80)
+print("Merge datasets on country, iso3c, year")
+print("=" * 80)
 df = pop.merge(gdp_pc, on=["country", "iso3c", "year"], how="outer") \
         .merge(agr,     on=["country", "iso3c", "year"], how="outer") \
         .merge(srv,     on=["country", "iso3c", "year"], how="outer") \
@@ -139,7 +146,9 @@ df.head()
 ```
 
 ```{python}
-# Create df_dev for developing countries
+print("=" * 80)
+print("Create df_dev for developing countries")
+print("=" * 80)
 
 meta_path = "data/raw/Metadata_Country_API_NY.GDP.PCAP.CD_DS2_en_csv_v2_134819.csv"
 meta = pd.read_csv(meta_path, encoding="utf-8", engine="python")
@@ -188,7 +197,9 @@ df.head(10)
 3. **[5 marks]** You must create at least two new variables to be used in the subsequent steps.  
 
 ```{python}
-# 3) Creating new variables 
+print("=" * 80)
+print("Create new variables")
+print("=" * 80) 
 import numpy as np
 
 # Normalise digital indicators (0–1 range) to make them comparable
@@ -318,6 +329,7 @@ plt.tight_layout()
 plt.show()
 
 ```
+
 ## Discussion 
 This 2023 cross-section shows a clear upward slope indicating that countries with higher digital adoption tend to have a wider services-over-agriculture gap, i.e., more service-centred economies. Resource-heavy or shock-exposed economies sit off the line, so the scatter is not perfect, but the main trend is clear. In plain terms, better connectivity goes hand-in-hand with deeper structural reallocation toward services, aligning directly with the research question and highlighting where lagging digital access may be holding back reallocation.
 
@@ -444,6 +456,7 @@ y = prepare_data(df_dev, year_sel)
 x_med, y_med, counts = calculate_quadrants(y)
 plot_quadrants(y, x_med, y_med, counts)
 ```
+
 # Discussion
 This chart puts digital intensity on the x axis and the services minus agriculture gap on the y axis. The dashed lines mark the sample medians at digital 0.62 and a gap of about 40.9 percentage points. That gives four easy groups.
 
@@ -463,7 +476,9 @@ Strong connectivity but the service sector has not yet pulled ahead. This sugges
 Bottom left. 
 Low on both measures. Priorities are basic infrastructure productivity gains in agriculture and gradual service development.
 ```{python}
-# Additional EDA 
+print("=" * 80)
+print("Additional EDA")
+print("=" * 80)
 
 # 1) Data Audit
 import pandas as pd
@@ -569,14 +584,299 @@ There is a clear gradient. Low-income countries have high agriculture shares nea
 Income is strongly linked to structure. GDP per capita correlates negatively with agriculture at about −0.69 and positively with services and the services minus agriculture gap at about 0.47 and 0.66. The two reallocation measures, service ratio and gap, are almost the same signal with r about 0.93. This warns against putting both in the same model.
 
 5. **[15 marks]** Calculate the relevant **summary and other statistics** from the data. 
+```{python}
+print("=" * 80)
+print("Basic Summary")
+print("=" * 80)
+import pandas as pd
+from scipy.stats import skew, kurtosis
+
+# Calculate summary statistics for relevant columns
+def summarize_data(df_dev):
+    # Descriptive statistics
+    summary_stats = df_dev[['gdp_pc', 'realloc_gap', 'digital_intensity']].describe()
+    
+    # Correlation matrix
+    correlation = df_dev[['gdp_pc', 'realloc_gap', 'digital_intensity']].corr()
+
+    # Print summary statistics
+    print("Summary Statistics:")
+    print(summary_stats)
+    print("\nCorrelation Matrix:")
+    print(correlation)
+
+# Call the function to display summary statistics
+summarize_data(df_dev)
+``` 
+
+```{python}
+
+import pandas as pd
+import numpy as np
+
+print("=" * 80)
+print("COMPREHENSIVE SUMMARY STATISTICS FOR DEVELOPING ECONOMIES (1990-2023)")
+print("=" * 80)
+
+# Basic Dataset Overview 
+print("\n=== DATASET OVERVIEW ===\n")
+print(f"Total observations: {len(df_dev):,}")
+print(f"Number of countries: {df_dev['iso3c'].nunique()}")
+print(f"Time period: {df_dev['year'].min()}–{df_dev['year'].max()}")
+print(f"Total years covered: {df_dev['year'].nunique()}")
+print(f"\nIncome group distribution:")
+print(df_dev.groupby('income_group')['iso3c'].nunique().to_frame('n_countries'))
+
+# Descriptive Statistics for Key Variables
+print("\n=== DESCRIPTIVE STATISTICS (All Years) ===\n")
+desc_vars = ["gdp_pc", "agr_share", "srv_share", "digital_intensity", 
+             "realloc_gap", "internet_users", "mobile_subs"]
+desc_stats = df_dev[desc_vars].describe().T
+desc_stats['cv'] = (desc_stats['std'] / desc_stats['mean']).round(3)  # Coefficient of variation
+desc_stats['range'] = desc_stats['max'] - desc_stats['min']
+print(desc_stats.round(2))
+
+# First vs Last Decade
+print("\n=== STRUCTURAL CHANGE: 1990s vs 2020s ===\n")
+early = df_dev[df_dev['year'].between(1990, 1999)]
+late = df_dev[df_dev['year'].between(2020, 2023)]
+
+comparison = pd.DataFrame({
+    '1990s_Mean': early[['agr_share', 'srv_share', 'gdp_pc', 'digital_intensity']].mean(),
+    '2020s_Mean': late[['agr_share', 'srv_share', 'gdp_pc', 'digital_intensity']].mean()
+})
+comparison['Absolute_Change'] = comparison['2020s_Mean'] - comparison['1990s_Mean']
+comparison['Percent_Change'] = ((comparison['2020s_Mean'] / comparison['1990s_Mean'] - 1) * 100).round(1)
+print(comparison.round(2))
+
+# Regional Breakdown
+print("\n=== REGIONAL STATISTICS (Latest Available Year) ===\n")
+latest_year = df_dev['year'].max()
+regional = (df_dev[df_dev['year'] == latest_year]
+            .groupby('region')[['agr_share', 'srv_share', 'digital_intensity', 'gdp_pc']]
+            .agg(['mean', 'median', 'std'])
+            .round(2))
+print(regional)
+
+# Income Group Analysis
+print("\n=== INCOME GROUP STATISTICS (Latest Available Year) ===\n")
+income_stats = (df_dev[df_dev['year'] == latest_year]
+                .groupby('income_group')[['agr_share', 'srv_share', 'digital_intensity', 'realloc_gap']]
+                .agg(['mean', 'median', 'count'])
+                .round(2))
+print(income_stats)
+
+# Correlation Analysis
+print("\n=== I. KEY CORRELATIONS ===\n")
+corr_vars = ['digital_intensity', 'agr_share', 'srv_share', 'realloc_gap', 
+             'log_gdp_pc', 'service_ratio']
+correlations = df_dev[corr_vars].corr()['digital_intensity'].sort_values(ascending=False)
+print(correlations.round(3))
+
+# Growth Rate Statistics 
+print("\n=== AVERAGE ANNUAL GROWTH RATES (% per year) ===\n")
+growth_stats = (df_dev.groupby('country')
+                .apply(lambda g: pd.Series({
+                    'digital_growth_mean': g['digital_growth'].mean(),
+                    'srv_share_cagr': ((g['srv_share'].iloc[-1] / g['srv_share'].iloc[0]) ** 
+                                       (1 / (g['year'].iloc[-1] - g['year'].iloc[0])) - 1) * 100
+                                       if len(g) > 1 and g['srv_share'].iloc[0] > 0 else np.nan
+                }))
+                .describe()
+                .round(2))
+print(growth_stats)
+
+# Data Quality Summary
+print("\n===DATA COMPLETENESS BY DECADE ===\n")
+df_dev['decade'] = (df_dev['year'] // 10) * 10
+completeness = (df_dev.groupby('decade')[key_vars]
+                .apply(lambda x: (x.notna().sum() / len(x) * 100).round(1))
+                .T)
+print(completeness)
+```
+
+6. **[15 marks]** Create at least two **useful plots** other than those of the exploratory data analysis. 
+
+```{python}
+# Plot: Mobile Subscriptions vs Internet Users (2023)
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Prepare data for 2023
+df_2023 = df_dev[df_dev["year"] == 2023].dropna(subset=["mobile_subs", "internet_users"])
+
+# Create scatter plot
+fig, ax = plt.subplots(figsize=(10, 6))
+
+# Color by income group
+colors = {"Low Income": "#E74C3C", 
+          "Lower Middle Income": "#F39C12", 
+          "Upper Middle Income": "#27AE60"}
+
+for group in df_2023["income_group"].unique():
+    subset = df_2023[df_2023["income_group"] == group]
+    ax.scatter(subset["mobile_subs"], subset["internet_users"], 
+               label=group, alpha=0.7, s=60, color=colors.get(group, "gray"))
+
+# Add diagonal reference line (where mobile = internet)
+max_val = max(df_2023["mobile_subs"].max(), df_2023["internet_users"].max())
+ax.plot([0, max_val], [0, max_val], 'k--', alpha=0.3, linewidth=1, label="Equal adoption")
+
+# Highlight South Africa
+sa = df_2023[df_2023["iso3c"] == "ZAF"]
+if not sa.empty:
+    ax.scatter(sa["mobile_subs"], sa["internet_users"],
+               s=200, marker="*", edgecolor="k", linewidth=1.5, 
+               color="yellow", label="South Africa", zorder=5)
+    ax.text(float(sa["mobile_subs"]) + 2, float(sa["internet_users"]) + 2,
+            "South Africa", fontsize=9, fontweight='bold')
+
+# Formatting
+ax.set_xlabel("Mobile Subscriptions (per 100 people)", fontsize=12)
+ax.set_ylabel("Internet Users (% of Population)", fontsize=12)
+ax.set_title("Mobile vs Internet Adoption in Developing Economies (2023)\nColoured by Income Group", 
+             fontsize=13, fontweight='bold', pad=15)
+ax.legend(fontsize=10, loc='lower right', frameon=True)
+ax.grid(alpha=0.3, linestyle='--')
+ax.set_xlim(0, max_val * 1.05)
+ax.set_ylim(0, 100)
+
+plt.tight_layout()
+plt.show()
+
+# Print insights
+print("\n" + "=" * 60)
+print("MOBILE vs INTERNET ADOPTION INSIGHTS (2023)")
+print("=" * 60)
+
+for group in ["Low Income", "Lower Middle Income", "Upper Middle Income"]:
+    subset = df_2023[df_2023["income_group"] == group]
+    if len(subset) > 0:
+        print(f"\n{group}:")
+        print(f"  Avg Mobile Subs:    {subset['mobile_subs'].mean():.1f} per 100")
+        print(f"  Avg Internet Users: {subset['internet_users'].mean():.1f}%")
+        print(f"  Gap:                {subset['mobile_subs'].mean() - subset['internet_users'].mean():.1f}")
+        print(f"  N:                  {len(subset)} countries")
+```
+
+```{python}
+
+# Plot: Internet Adoption by Income Group (2000 vs 2023)
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Prepare data
+years = [2000, 2023]
+metric = "internet_users"
+
+# Calculate mean internet users by income group and year
+adoption = (df_dev[df_dev["year"].isin(years)]
+            .dropna(subset=["income_group", metric])
+            .groupby(["income_group", "year"])[metric]
+            .mean()
+            .unstack(fill_value=0))
+
+# Order income groups from low to high
+order = ["Low Income", "Lower Middle Income", "Upper Middle Income"]
+adoption = adoption.reindex(order).dropna(how="all")
+
+# Create bar chart
+fig, ax = plt.subplots(figsize=(10, 6))
+
+x = np.arange(len(adoption.index))
+width = 0.35
 
 
-6. **[15 marks]** Create at least two **useful plots** other than those of the exploratory data analysis.  
+bars1 = ax.bar(x - width/2, adoption[2000], width, label="2000", color="#3498DB", alpha=0.8)
+bars2 = ax.bar(x + width/2, adoption[2023], width, label="2023", color="#E74C3C", alpha=0.8)
+
+# Add value labels on bars
+for bars in [bars1, bars2]:
+    for bar in bars:
+        height = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width()/2., height,
+                f'{height:.1f}%',
+                ha='center', va='bottom', fontsize=9)
+
+# Formatting
+ax.set_xticks(x)
+ax.set_xticklabels(adoption.index, fontsize=11)
+ax.set_ylabel("Internet Users (% of Population)", fontsize=12)
+ax.set_title("Digital Divide: Internet Adoption by Income Group (2000 vs 2023)", 
+             fontsize=13, pad=15, fontweight='bold')
+ax.legend(fontsize=11, frameon=False)
+ax.grid(axis="y", alpha=0.3, linestyle='--')
+ax.set_ylim(0, max(adoption.max()) * 1.15)  
+plt.tight_layout()
+plt.show()
+
+```
+
 
 7. **[15 marks]** Do a **statistical or regression analysis** of the data, which could be used for your thesis.  
    - Marks will be given for suitability and originality.  
 
+```{python}
+# OLS Regression Analysis
 
+import numpy as np
+from scipy.stats import linregress
+import matplotlib.pyplot as plt
+
+print("=" * 80)
+print("Cross-sectional OLS (2023)")
+print("=" * 80)
+
+# Prepare data for 2023
+df_reg = df_dev[df_dev['year'] == 2023][['country', 'digital_intensity', 'realloc_gap']].dropna()
+
+print(f"\nSample: {len(df_reg)} countries in 2023\n")
+
+# Run simple linear regression
+X = df_reg['digital_intensity'].values
+y = df_reg['realloc_gap'].values
+
+slope, intercept, r_value, p_value, std_err = linregress(X, y)
+
+# Print results
+print("Regression Equation:")
+print(f"  Reallocation Gap = {intercept:.2f} + {slope:.2f} × Digital Intensity\n")
+
+print("Results:")
+print(f"  Coefficient:      {slope:.4f}")
+print(f"  Standard Error:   {std_err:.4f}")
+print(f"  p-value:          {p_value:.4f} {'***' if p_value < 0.01 else '**' if p_value < 0.05 else '*' if p_value < 0.1 else ''}")
+print(f"  R-squared:        {r_value**2:.4f}")
+print(f"  N:                {len(X)}")
+
+print(f"\nInterpretation:")
+print(f"  A 0.1 increase in digital intensity is associated with a")
+print(f"  {slope*0.1:.2f} percentage point change in the reallocation gap.")
+
+# Visualization
+fig, ax = plt.subplots(figsize=(10, 6))
+
+ax.scatter(X, y, alpha=0.6, s=60, edgecolors='k', linewidth=0.5)
+
+# Add regression line
+x_line = np.linspace(X.min(), X.max(), 100)
+y_line = intercept + slope * x_line
+ax.plot(x_line, y_line, 'r-', linewidth=2, 
+        label=f'y = {intercept:.1f} + {slope:.1f}x (R² = {r_value**2:.3f})')
+
+ax.set_xlabel('Digital Intensity (0-1)', fontsize=12)
+ax.set_ylabel('Reallocation Gap: Services - Agriculture (% GDP)', fontsize=12)
+ax.set_title('Digital Connectivity and Structural Transformation (2023)', 
+             fontsize=13, fontweight='bold')
+ax.legend(fontsize=11)
+ax.grid(alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+
+print("\n" + "=" * 80)
+```
 
 8. **[10 marks]** These marks are allocated based on the **overall impression of your code**. The following will be considered:  
    a. Does your code run without a problem?  
