@@ -21,10 +21,45 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="AssignmentFinal_1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="AssignmentFinal_1_files/libs/clipboard/clipboard.min.js"></script>
 <script src="AssignmentFinal_1_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="AssignmentFinal_1_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="AssignmentFinal_1_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -36,6 +71,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="AssignmentFinal_1_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="AssignmentFinal_1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="AssignmentFinal_1_files/libs/bootstrap/bootstrap-4d7f0bce1131f3e5f9547cd857cfbfc8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -52,7 +90,26 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#step-1-get-your-data" id="toc-step-1-get-your-data" class="nav-link" data-scroll-target="#step-1-get-your-data">Step 1: Get your data</a></li>
   <li><a href="#step-2-now-that-you-have-the-data-you-need-to-do-the-following" id="toc-step-2-now-that-you-have-the-data-you-need-to-do-the-following" class="nav-link" data-scroll-target="#step-2-now-that-you-have-the-data-you-need-to-do-the-following">Step 2: Now that you have the data, you need to do the following</a></li>
-  <li><a href="#step-3-once-you-have-joined-the-data-to-create-df-do-the-following" id="toc-step-3-once-you-have-joined-the-data-to-create-df-do-the-following" class="nav-link" data-scroll-target="#step-3-once-you-have-joined-the-data-to-create-df-do-the-following">Step 3: Once you have joined the data to create <code>df</code>, do the following</a>
+  <li><a href="#step-3-once-you-have-joined-the-data-to-create-df-do-the-following" id="toc-step-3-once-you-have-joined-the-data-to-create-df-do-the-following" class="nav-link" data-scroll-target="#step-3-once-you-have-joined-the-data-to-create-df-do-the-following">Step 3: Once you have joined the data to create <code>df</code>, do the following</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
+  <li><a href="#discussion-1" id="toc-discussion-1" class="nav-link" data-scroll-target="#discussion-1">Discussion</a>
+  <ul class="collapse">
+  <li><a href="#discussion-2" id="toc-discussion-2" class="nav-link" data-scroll-target="#discussion-2">Discussion</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#discussion-3" id="toc-discussion-3" class="nav-link" data-scroll-target="#discussion-3">Discussion</a>
+  <ul class="collapse">
+  <li><a href="#leaders" id="toc-leaders" class="nav-link" data-scroll-target="#leaders">Leaders</a></li>
+  <li><a href="#realloc-digital" id="toc-realloc-digital" class="nav-link" data-scroll-target="#realloc-digital">Realloc &gt; digital</a></li>
+  <li><a href="#digital-realloc" id="toc-digital-realloc" class="nav-link" data-scroll-target="#digital-realloc">Digital &gt; realloc</a></li>
+  <li><a href="#early-stage" id="toc-early-stage" class="nav-link" data-scroll-target="#early-stage">Early stage</a></li>
+  </ul></li>
+  <li><a href="#additional-discussion" id="toc-additional-discussion" class="nav-link" data-scroll-target="#additional-discussion">Additional Discussion</a>
+  <ul class="collapse">
+  <li><a href="#coverage-and-missingness" id="toc-coverage-and-missingness" class="nav-link" data-scroll-target="#coverage-and-missingness">Coverage and missingness</a></li>
+  <li><a href="#change-from-1990-to-2023" id="toc-change-from-1990-to-2023" class="nav-link" data-scroll-target="#change-from-1990-to-2023">Change from 1990 to 2023</a></li>
+  <li><a href="#by-income-group" id="toc-by-income-group" class="nav-link" data-scroll-target="#by-income-group">2023 by income group</a></li>
+  <li><a href="#correlations-in-2023" id="toc-correlations-in-2023" class="nav-link" data-scroll-target="#correlations-in-2023">Correlations in 2023</a>
   <ul class="collapse">
   <li><a href="#total-100-marks" id="toc-total-100-marks" class="nav-link" data-scroll-target="#total-100-marks"><strong>Total: 100 marks</strong></a></li>
   </ul></li>
@@ -119,19 +176,1620 @@ ul.task-list li input[type="checkbox"] {
 <li>Join the two or more datasets to create the dataframe called <strong>df</strong>. Larger datasets will get more marks than smaller ones.</li>
 </ol></li>
 </ol>
+<div id="69ab2d06" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import World Bank Data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define data folder</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>RAW_DIR <span class="op">=</span> <span class="st">"data/raw"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to read and reshape World Bank CSVs</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_wb_api_csv(path, value_name):</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_csv(path, skiprows<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">"Country Name"</span>: <span class="st">"country"</span>, <span class="st">"Country Code"</span>: <span class="st">"iso3c"</span>})</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    year_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> df.columns <span class="cf">if</span> c.isdigit()]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.melt(id_vars<span class="op">=</span>[<span class="st">"country"</span>, <span class="st">"iso3c"</span>], value_vars<span class="op">=</span>year_cols,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                 var_name<span class="op">=</span><span class="st">"year"</span>, value_name<span class="op">=</span>value_name)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"year"</span>] <span class="op">=</span> df[<span class="st">"year"</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    df[value_name] <span class="op">=</span> pd.to_numeric(df[value_name], errors<span class="op">=</span><span class="st">"coerce"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Load all required indicators</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>pop <span class="op">=</span> read_wb_api_csv(<span class="ss">f"</span><span class="sc">{</span>RAW_DIR<span class="sc">}</span><span class="ss">/API_SP.POP.TOTL_DS2_en_csv_v2_130083.csv"</span>, <span class="st">"pop"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>gdp_pc <span class="op">=</span> read_wb_api_csv(<span class="ss">f"</span><span class="sc">{</span>RAW_DIR<span class="sc">}</span><span class="ss">/API_NY.GDP.PCAP.CD_DS2_en_csv_v2_134819.csv"</span>, <span class="st">"gdp_pc"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>agr <span class="op">=</span> read_wb_api_csv(<span class="ss">f"</span><span class="sc">{</span>RAW_DIR<span class="sc">}</span><span class="ss">/API_NV.AGR.TOTL.ZS_DS2_en_csv_v2_128624.csv"</span>, <span class="st">"agr_share"</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>srv <span class="op">=</span> read_wb_api_csv(<span class="ss">f"</span><span class="sc">{</span>RAW_DIR<span class="sc">}</span><span class="ss">/API_NV.SRV.TOTL.ZS_DS2_en_csv_v2_129290.csv"</span>, <span class="st">"srv_share"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> read_wb_api_csv(<span class="ss">f"</span><span class="sc">{</span>RAW_DIR<span class="sc">}</span><span class="ss">/API_IT.NET.USER.ZS_DS2_en_csv_v2_129784.csv"</span>, <span class="st">"internet_users"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>mob <span class="op">=</span> read_wb_api_csv(<span class="ss">f"</span><span class="sc">{</span>RAW_DIR<span class="sc">}</span><span class="ss">/API_IT.CEL.SETS.P2_DS2_en_csv_v2_123929.csv"</span>, <span class="st">"mobile_subs"</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick check</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, d <span class="kw">in</span> {<span class="st">"Population"</span>: pop, <span class="st">"GDP per capita"</span>: gdp_pc, <span class="st">"Agriculture"</span>: agr,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Services"</span>: srv, <span class="st">"Internet"</span>: net, <span class="st">"Mobile"</span>: mob}.items():</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:15}</span><span class="ss"> → </span><span class="sc">{</span>d<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> rows, </span><span class="sc">{</span>d[<span class="st">'year'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> years"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Population      → 17290 rows, 65 years
+GDP per capita  → 17290 rows, 65 years
+Agriculture     → 17290 rows, 65 years
+Services        → 17290 rows, 65 years
+Internet        → 17290 rows, 65 years
+Mobile          → 17290 rows, 65 years</code></pre>
+</div>
+</div>
+<div id="03b275bc" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic Cleaning </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>YEARS <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1990</span>, <span class="dv">2024</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>pop <span class="op">=</span> pop[pop[<span class="st">"year"</span>].isin(YEARS)].copy()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>gdp_pc <span class="op">=</span> gdp_pc[gdp_pc[<span class="st">"year"</span>].isin(YEARS)].copy()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>agr <span class="op">=</span> agr[agr[<span class="st">"year"</span>].isin(YEARS)].copy()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>srv <span class="op">=</span> srv[srv[<span class="st">"year"</span>].isin(YEARS)].copy()</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> net[net[<span class="st">"year"</span>].isin(YEARS)].copy()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>mob <span class="op">=</span> mob[mob[<span class="st">"year"</span>].isin(YEARS)].copy()</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure numeric values</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> df <span class="kw">in</span> [pop, gdp_pc, agr, srv, net, mob]:</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df[df[<span class="st">"year"</span>].isin(YEARS)].copy()</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    value_col <span class="op">=</span> df.columns[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    df[value_col] <span class="op">=</span> pd.to_numeric(df[value_col], errors<span class="op">=</span><span class="st">"coerce"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    datasets <span class="op">=</span> {</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Population"</span>: pop,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"GDP per capita"</span>: gdp_pc,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Agriculture"</span>: agr,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Services"</span>: srv,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Internet"</span>: net,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mobile"</span>: mob</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, df <span class="kw">in</span> datasets.items():</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    years <span class="op">=</span> df[<span class="st">"year"</span>].unique()</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:15}</span><span class="ss"> → </span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">:6,}</span><span class="ss"> rows | </span><span class="sc">{</span>df[<span class="st">'year'</span>]<span class="sc">.</span>nunique()<span class="sc">:2}</span><span class="ss"> years "</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"(from </span><span class="sc">{</span>years<span class="sc">.</span><span class="bu">min</span>()<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>years<span class="sc">.</span><span class="bu">max</span>()<span class="sc">}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Population      →  9,044 rows | 34 years (from 1990 to 2023)
+GDP per capita  →  9,044 rows | 34 years (from 1990 to 2023)
+Agriculture     →  9,044 rows | 34 years (from 1990 to 2023)
+Services        →  9,044 rows | 34 years (from 1990 to 2023)
+Internet        →  9,044 rows | 34 years (from 1990 to 2023)
+Mobile          →  9,044 rows | 34 years (from 1990 to 2023)</code></pre>
+</div>
+</div>
+<div id="5d153333" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># merge datasets on country, iso3c, year</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pop.merge(gdp_pc, on<span class="op">=</span>[<span class="st">"country"</span>, <span class="st">"iso3c"</span>, <span class="st">"year"</span>], how<span class="op">=</span><span class="st">"outer"</span>) <span class="op">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        .merge(agr,     on<span class="op">=</span>[<span class="st">"country"</span>, <span class="st">"iso3c"</span>, <span class="st">"year"</span>], how<span class="op">=</span><span class="st">"outer"</span>) <span class="op">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        .merge(srv,     on<span class="op">=</span>[<span class="st">"country"</span>, <span class="st">"iso3c"</span>, <span class="st">"year"</span>], how<span class="op">=</span><span class="st">"outer"</span>) <span class="op">\</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        .merge(net,     on<span class="op">=</span>[<span class="st">"country"</span>, <span class="st">"iso3c"</span>, <span class="st">"year"</span>], how<span class="op">=</span><span class="st">"outer"</span>) <span class="op">\</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        .merge(mob,     on<span class="op">=</span>[<span class="st">"country"</span>, <span class="st">"iso3c"</span>, <span class="st">"year"</span>], how<span class="op">=</span><span class="st">"outer"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to 1990-2023 </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"year"</span>].between(<span class="dv">1990</span>, <span class="dv">2023</span>)].copy()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidy column order</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>first_cols <span class="op">=</span> [<span class="st">"country"</span>, <span class="st">"iso3c"</span>, <span class="st">"year"</span>]</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[first_cols <span class="op">+</span> [c <span class="cf">for</span> c <span class="kw">in</span> df.columns <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> first_cols]]</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># checks</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Rows: </span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Countries: </span><span class="sc">{</span>df[<span class="st">'iso3c'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> | Years: </span><span class="sc">{</span>df[<span class="st">'year'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> "</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"(</span><span class="sc">{</span>df[<span class="st">'year'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">}</span><span class="ss">–</span><span class="sc">{</span>df[<span class="st">'year'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Share missing for key variables (0-1)</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>key_vars <span class="op">=</span> [<span class="st">"pop"</span>,<span class="st">"gdp_pc"</span>,<span class="st">"agr_share"</span>,<span class="st">"srv_share"</span>,<span class="st">"internet_users"</span>,<span class="st">"mobile_subs"</span>]</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>missing <span class="op">=</span> df[key_vars].isna().mean().sort_values().to_frame(<span class="st">"share_missing"</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Share missing (0–1) for key variables:"</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(missing)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Peek </span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 9,044
+Countries: 266 | Years: 34 (1990–2023)
+
+Share missing (0–1) for key variables:
+                share_missing
+pop                  0.003759
+gdp_pc               0.045223
+mobile_subs          0.069881
+agr_share            0.136223
+srv_share            0.158226
+internet_users       0.264042</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">iso3c</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">pop</th>
+<th data-quarto-table-cell-role="th">gdp_pc</th>
+<th data-quarto-table-cell-role="th">agr_share</th>
+<th data-quarto-table-cell-role="th">srv_share</th>
+<th data-quarto-table-cell-role="th">internet_users</th>
+<th data-quarto-table-cell-role="th">mobile_subs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1990</td>
+<td>12045660.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1991</td>
+<td>12238879.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1992</td>
+<td>13278974.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1993</td>
+<td>14943172.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1994</td>
+<td>16250794.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="66b85bad" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create df_dev for developing countries</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>meta_path <span class="op">=</span> <span class="st">"data/raw/Metadata_Country_API_NY.GDP.PCAP.CD_DS2_en_csv_v2_134819.csv"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>meta <span class="op">=</span> pd.read_csv(meta_path, encoding<span class="op">=</span><span class="st">"utf-8"</span>, engine<span class="op">=</span><span class="st">"python"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep the key columns and rename</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>meta <span class="op">=</span> meta.rename(columns<span class="op">=</span>{</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Country Code"</span>: <span class="st">"iso3c"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Region"</span>: <span class="st">"region"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"IncomeGroup"</span>: <span class="st">"income_group"</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>})[[<span class="st">"iso3c"</span>, <span class="st">"region"</span>, <span class="st">"income_group"</span>]]</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge the metadata into our main DataFrame</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.merge(meta, on<span class="op">=</span><span class="st">"iso3c"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop rows where region is missing</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"region"</span>].notna()].copy()</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean income group text</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"income_group"</span>] <span class="op">=</span> (</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"income_group"</span>]</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    .astype(<span class="bu">str</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">str</span>.strip()</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">str</span>.replace(<span class="st">"_"</span>, <span class="st">" "</span>, regex<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">str</span>.title()</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Exclude High-income economies</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>df_dev <span class="op">=</span> df[df[<span class="st">"income_group"</span>] <span class="op">!=</span> <span class="st">"High Income"</span>].copy()</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 1990-2023 range </span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>df_dev <span class="op">=</span> df_dev[df_dev[<span class="st">"year"</span>].between(<span class="dv">1990</span>, <span class="dv">2023</span>)].copy()</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Results</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Rows after filtering: </span><span class="sc">{</span><span class="bu">len</span>(df_dev)<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Countries: </span><span class="sc">{</span>df_dev[<span class="st">'iso3c'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> | Years: </span><span class="sc">{</span>df_dev[<span class="st">'year'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>df_dev[<span class="st">'year'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">}</span><span class="ss">–</span><span class="sc">{</span>df_dev[<span class="st">'year'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>df_dev[<span class="st">"income_group"</span>].value_counts()</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co"># preview</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows after filtering: 4,454
+Countries: 131 | Years: 34 (1990–2023)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">iso3c</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">pop</th>
+<th data-quarto-table-cell-role="th">gdp_pc</th>
+<th data-quarto-table-cell-role="th">agr_share</th>
+<th data-quarto-table-cell-role="th">srv_share</th>
+<th data-quarto-table-cell-role="th">internet_users</th>
+<th data-quarto-table-cell-role="th">mobile_subs</th>
+<th data-quarto-table-cell-role="th">region</th>
+<th data-quarto-table-cell-role="th">income_group</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1990</td>
+<td>12045660.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>Middle East &amp; North Africa</td>
+<td>Low Income</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1991</td>
+<td>12238879.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>Middle East &amp; North Africa</td>
+<td>Low Income</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1992</td>
+<td>13278974.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>Middle East &amp; North Africa</td>
+<td>Low Income</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1993</td>
+<td>14943172.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>Middle East &amp; North Africa</td>
+<td>Low Income</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1994</td>
+<td>16250794.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>Middle East &amp; North Africa</td>
+<td>Low Income</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1995</td>
+<td>17065836.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>Middle East &amp; North Africa</td>
+<td>Low Income</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1996</td>
+<td>17763266.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>Middle East &amp; North Africa</td>
+<td>Low Income</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">7</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1997</td>
+<td>18452091.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>Middle East &amp; North Africa</td>
+<td>Low Income</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1998</td>
+<td>19159996.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>Middle East &amp; North Africa</td>
+<td>Low Income</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">9</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>1999</td>
+<td>19887785.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>Middle East &amp; North Africa</td>
+<td>Low Income</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 <hr>
 </section>
 <section id="step-3-once-you-have-joined-the-data-to-create-df-do-the-following" class="level2">
 <h2 class="anchored" data-anchor-id="step-3-once-you-have-joined-the-data-to-create-df-do-the-following">Step 3: Once you have joined the data to create <code>df</code>, do the following</h2>
 <ol start="3" type="1">
-<li><p><strong>[5 marks]</strong> You must create at least two new variables to be used in the subsequent steps.</p></li>
-<li><p><strong>[30 marks]</strong> Do a suitable <strong>exploratory data analysis</strong> on the data.</p>
+<li><strong>[5 marks]</strong> You must create at least two new variables to be used in the subsequent steps.</li>
+</ol>
+<div id="e3de2203" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Creating new variables </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalise digital indicators (0–1 range) to make them comparable</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> var <span class="kw">in</span> [<span class="st">"internet_users"</span>, <span class="st">"mobile_subs"</span>]:</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    df_dev[var <span class="op">+</span> <span class="st">"_norm"</span>] <span class="op">=</span> (</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        (df_dev[var] <span class="op">-</span> df_dev[var].<span class="bu">min</span>()) <span class="op">/</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        (df_dev[var].<span class="bu">max</span>() <span class="op">-</span> df_dev[var].<span class="bu">min</span>())</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Combined digital adoption index</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>df_dev[<span class="st">"digital_intensity"</span>] <span class="op">=</span> df_dev[[<span class="st">"internet_users_norm"</span>, <span class="st">"mobile_subs_norm"</span>]].mean(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Log GDP per capita </span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>df_dev[<span class="st">"log_gdp_pc"</span>] <span class="op">=</span> np.log(df_dev[<span class="st">"gdp_pc"</span>])</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Services Ratio to Agriculture</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>df_dev[<span class="st">"service_ratio"</span>] <span class="op">=</span> (</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    df_dev[<span class="st">"srv_share"</span>] <span class="op">/</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    (df_dev[<span class="st">"srv_share"</span>] <span class="op">+</span> df_dev[<span class="st">"agr_share"</span>])</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Reallocation gap</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>df_dev[<span class="st">"realloc_gap"</span>] <span class="op">=</span> df_dev[<span class="st">"srv_share"</span>] <span class="op">-</span> df_dev[<span class="st">"agr_share"</span>]</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Digital adoption growth rate (year-on-year % change per country)</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>df_dev <span class="op">=</span> df_dev.sort_values([<span class="st">"country"</span>, <span class="st">"year"</span>])</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>df_dev[<span class="st">"digital_growth"</span>] <span class="op">=</span> (</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    df_dev.groupby(<span class="st">"country"</span>)[<span class="st">"digital_intensity"</span>]</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>          .pct_change() <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Total GDP (current US$)</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>df_dev[<span class="st">"gdp_total_usd"</span>] <span class="op">=</span> df_dev[<span class="st">"pop"</span>] <span class="op">*</span> df_dev[<span class="st">"gdp_pc"</span>]</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Agriculture GDP (current US$)</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>df_dev[<span class="st">"agri_gdp_usd"</span>] <span class="op">=</span> df_dev[<span class="st">"gdp_total_usd"</span>] <span class="op">*</span> (df_dev[<span class="st">"agr_share"</span>] <span class="op">/</span> <span class="dv">100</span>)</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Services GDP (current US$)</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>df_dev[<span class="st">"services_gdp_usd"</span>] <span class="op">=</span> df_dev[<span class="st">"gdp_total_usd"</span>] <span class="op">*</span> (df_dev[<span class="st">"srv_share"</span>] <span class="op">/</span> <span class="dv">100</span>)</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>df_dev[df_dev[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2005</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\johan\AppData\Local\Temp\ipykernel_28092\3254397842.py:30: FutureWarning: The default fill_method='ffill' in SeriesGroupBy.pct_change is deprecated and will be removed in a future version. Either fill in any non-leading NA values prior to calling pct_change or specify 'fill_method=None' to not fill NA values.
+  .pct_change() * 100</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">iso3c</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">pop</th>
+<th data-quarto-table-cell-role="th">gdp_pc</th>
+<th data-quarto-table-cell-role="th">agr_share</th>
+<th data-quarto-table-cell-role="th">srv_share</th>
+<th data-quarto-table-cell-role="th">internet_users</th>
+<th data-quarto-table-cell-role="th">mobile_subs</th>
+<th data-quarto-table-cell-role="th">region</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">internet_users_norm</th>
+<th data-quarto-table-cell-role="th">mobile_subs_norm</th>
+<th data-quarto-table-cell-role="th">digital_intensity</th>
+<th data-quarto-table-cell-role="th">log_gdp_pc</th>
+<th data-quarto-table-cell-role="th">service_ratio</th>
+<th data-quarto-table-cell-role="th">realloc_gap</th>
+<th data-quarto-table-cell-role="th">digital_growth</th>
+<th data-quarto-table-cell-role="th">gdp_total_usd</th>
+<th data-quarto-table-cell-role="th">agri_gdp_usd</th>
+<th data-quarto-table-cell-role="th">services_gdp_usd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">15</th>
+<td>Afghanistan</td>
+<td>AFG</td>
+<td>2005</td>
+<td>24404567.0</td>
+<td>254.184249</td>
+<td>31.114855</td>
+<td>39.007787</td>
+<td>1.22415</td>
+<td>4.91711</td>
+<td>Middle East &amp; North Africa</td>
+<td>...</td>
+<td>0.012531</td>
+<td>0.023722</td>
+<td>0.018126</td>
+<td>5.538059</td>
+<td>0.556279</td>
+<td>7.892932</td>
+<td>171.169611</td>
+<td>6.203257e+09</td>
+<td>1.930134e+09</td>
+<td>2.419753e+09</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">117</th>
+<td>Albania</td>
+<td>ALB</td>
+<td>2005</td>
+<td>3011487.0</td>
+<td>2741.721365</td>
+<td>17.124718</td>
+<td>40.398132</td>
+<td>6.04389</td>
+<td>49.74530</td>
+<td>Europe &amp; Central Asia</td>
+<td>...</td>
+<td>0.061866</td>
+<td>0.239993</td>
+<td>0.150930</td>
+<td>7.916341</td>
+<td>0.702297</td>
+<td>23.273414</td>
+<td>36.658148</td>
+<td>8.256658e+09</td>
+<td>1.413929e+09</td>
+<td>3.335536e+09</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">151</th>
+<td>Algeria</td>
+<td>DZA</td>
+<td>2005</td>
+<td>33109249.0</td>
+<td>3233.133396</td>
+<td>6.559271</td>
+<td>39.523400</td>
+<td>5.84394</td>
+<td>41.26140</td>
+<td>Middle East &amp; North Africa</td>
+<td>...</td>
+<td>0.059820</td>
+<td>0.199063</td>
+<td>0.129441</td>
+<td>8.081207</td>
+<td>0.857663</td>
+<td>32.964129</td>
+<td>116.401349</td>
+<td>1.070466e+11</td>
+<td>7.021478e+09</td>
+<td>4.230846e+10</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">253</th>
+<td>Angola</td>
+<td>AGO</td>
+<td>2005</td>
+<td>19291161.0</td>
+<td>1916.468422</td>
+<td>5.060403</td>
+<td>35.526726</td>
+<td>1.14337</td>
+<td>8.35159</td>
+<td>Sub-Saharan Africa</td>
+<td>...</td>
+<td>0.011704</td>
+<td>0.040292</td>
+<td>0.025998</td>
+<td>7.558239</td>
+<td>0.875320</td>
+<td>30.466323</td>
+<td>117.086717</td>
+<td>3.697090e+10</td>
+<td>1.870877e+09</td>
+<td>1.313455e+10</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">355</th>
+<td>Argentina</td>
+<td>ARG</td>
+<td>2005</td>
+<td>39216789.0</td>
+<td>5067.653423</td>
+<td>7.938754</td>
+<td>48.486146</td>
+<td>17.72060</td>
+<td>56.49730</td>
+<td>Latin America &amp; Caribbean</td>
+<td>...</td>
+<td>0.181391</td>
+<td>0.272568</td>
+<td>0.226979</td>
+<td>8.530633</td>
+<td>0.859304</td>
+<td>40.547392</td>
+<td>36.693465</td>
+<td>1.987371e+11</td>
+<td>1.577725e+10</td>
+<td>9.635996e+10</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8821</th>
+<td>Viet Nam</td>
+<td>VNM</td>
+<td>2005</td>
+<td>81088313.0</td>
+<td>710.746760</td>
+<td>19.299979</td>
+<td>42.568881</td>
+<td>12.73990</td>
+<td>11.83060</td>
+<td>East Asia &amp; Pacific</td>
+<td>...</td>
+<td>0.130408</td>
+<td>0.057076</td>
+<td>0.093742</td>
+<td>6.566316</td>
+<td>0.688050</td>
+<td>23.268902</td>
+<td>73.573079</td>
+<td>5.763326e+10</td>
+<td>1.112321e+10</td>
+<td>2.453383e+10</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">8889</th>
+<td>West Bank and Gaza</td>
+<td>PSE</td>
+<td>2005</td>
+<td>3320396.0</td>
+<td>1543.701414</td>
+<td>8.989992</td>
+<td>57.317049</td>
+<td>16.00500</td>
+<td>15.95500</td>
+<td>Middle East &amp; North Africa</td>
+<td>...</td>
+<td>0.163830</td>
+<td>0.076974</td>
+<td>0.120402</td>
+<td>7.341938</td>
+<td>0.864419</td>
+<td>48.327058</td>
+<td>127.896776</td>
+<td>5.125700e+09</td>
+<td>4.608000e+08</td>
+<td>2.937900e+09</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8957</th>
+<td>Yemen, Rep.</td>
+<td>YEM</td>
+<td>2005</td>
+<td>22790085.0</td>
+<td>734.159908</td>
+<td>11.093242</td>
+<td>33.383375</td>
+<td>1.04860</td>
+<td>9.99364</td>
+<td>Middle East &amp; North Africa</td>
+<td>...</td>
+<td>0.010734</td>
+<td>0.048214</td>
+<td>0.029474</td>
+<td>6.598727</td>
+<td>0.750583</td>
+<td>22.290132</td>
+<td>42.907808</td>
+<td>1.673157e+10</td>
+<td>1.856073e+09</td>
+<td>5.585562e+09</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">8991</th>
+<td>Zambia</td>
+<td>ZMB</td>
+<td>2005</td>
+<td>11718819.0</td>
+<td>710.982068</td>
+<td>14.588551</td>
+<td>48.957615</td>
+<td>1.30000</td>
+<td>8.10286</td>
+<td>Sub-Saharan Africa</td>
+<td>...</td>
+<td>0.013307</td>
+<td>0.039092</td>
+<td>0.026199</td>
+<td>6.566647</td>
+<td>0.770426</td>
+<td>34.369063</td>
+<td>68.929217</td>
+<td>8.331870e+09</td>
+<td>1.215499e+09</td>
+<td>4.079085e+09</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9025</th>
+<td>Zimbabwe</td>
+<td>ZWE</td>
+<td>2005</td>
+<td>12483432.0</td>
+<td>461.028318</td>
+<td>17.148240</td>
+<td>48.681379</td>
+<td>2.40000</td>
+<td>5.18375</td>
+<td>Sub-Saharan Africa</td>
+<td>...</td>
+<td>0.024567</td>
+<td>0.025009</td>
+<td>0.024788</td>
+<td>6.133459</td>
+<td>0.739506</td>
+<td>31.533139</td>
+<td>30.098848</td>
+<td>5.755216e+09</td>
+<td>9.869182e+08</td>
+<td>2.801718e+09</td>
+</tr>
+</tbody>
+</table>
+
+<p>131 rows × 21 columns</p>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li><strong>[30 marks]</strong> Do a suitable <strong>exploratory data analysis</strong> on the data.
 <ul>
 <li>This should include at least three visualisations, but should not be limited to them.<br>
 </li>
 <li>Also, this section requires accompanying text to interpret the results.</li>
 </ul></li>
-<li><p><strong>[15 marks]</strong> Calculate the relevant <strong>summary and other statistics</strong> from the data.</p></li>
+</ol>
+<div id="430f6316" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot 1 - Average Structural Change and Digital Adoption</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute yearly averages and restrict to 1990–2023</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>trend <span class="op">=</span> (</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    df_dev.groupby(<span class="st">"year"</span>)[[<span class="st">"agr_share"</span>, <span class="st">"srv_share"</span>, <span class="st">"digital_intensity"</span>]]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>          .mean()</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>          .reset_index()</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>trend <span class="op">=</span> trend[trend[<span class="st">"year"</span>].between(<span class="dv">1990</span>, <span class="dv">2023</span>)]</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Left axis </span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>ax1.plot(trend[<span class="st">"year"</span>], trend[<span class="st">"agr_share"</span>], label<span class="op">=</span><span class="st">"Agriculture (</span><span class="sc">% o</span><span class="st">f GDP)"</span>, </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>         color<span class="op">=</span><span class="st">"#2E86C1"</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>ax1.plot(trend[<span class="st">"year"</span>], trend[<span class="st">"srv_share"</span>], label<span class="op">=</span><span class="st">"Services (</span><span class="sc">% o</span><span class="st">f GDP)"</span>, </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>         color<span class="op">=</span><span class="st">"#27AE60"</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">"Share of GDP (%)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>, color<span class="op">=</span><span class="st">"#34495E"</span>)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>ax1.tick_params(axis<span class="op">=</span><span class="st">"y"</span>, labelcolor<span class="op">=</span><span class="st">"#34495E"</span>)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>ax1.set_xlim(<span class="dv">1990</span>, <span class="dv">2023</span>)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Right axis </span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> ax1.twinx()</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>ax2.plot(trend[<span class="st">"year"</span>], trend[<span class="st">"digital_intensity"</span>]<span class="op">*</span><span class="dv">100</span>, </span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>         label<span class="op">=</span><span class="st">"Digital Intensity (0–100)"</span>, </span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>         color<span class="op">=</span><span class="st">"#E67E22"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">"Digital Intensity (Scaled 0–100)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>, color<span class="op">=</span><span class="st">"#E67E22"</span>)</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>ax2.tick_params(axis<span class="op">=</span><span class="st">"y"</span>, labelcolor<span class="op">=</span><span class="st">"#E67E22"</span>)</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Titles and layout</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Structural Transformation and Digital Adoption in Developing Economies (1990–2023)"</span>,</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>          fontsize<span class="op">=</span><span class="dv">13</span>, pad<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">"Year"</span>)</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Combined legend</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>lines_1, labels_1 <span class="op">=</span> ax1.get_legend_handles_labels()</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>lines_2, labels_2 <span class="op">=</span> ax2.get_legend_handles_labels()</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>ax1.legend(lines_1 <span class="op">+</span> lines_2, labels_1 <span class="op">+</span> labels_2, loc<span class="op">=</span><span class="st">"upper left"</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="AssignmentFinal_1_files/figure-html/cell-7-output-1.png" width="948" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion" class="level2">
+<h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
+<p>From 1990 to 2023, developing economies steadily moved out of agriculture and into services. The average agriculture share fell from the low 20s to the mid-teens, while services rose from the mid-40s to just above half of GDP. Digital intensity was flat until the mid-2000s, then climbed quickly in the same years that services gained most. The timing and direction lines up with the research question that wider connectivity goes together with a shift toward services, despite brief pauses around the 2008–09 crisis and the 2020–21 pandemic. These are simple country averages, but the pattern is hard to miss.</p>
+<div id="803968ce" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot 2 - Digital Adoption vs Reallocation Gap (Developing Economies, 2023)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for latest year with valid values</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>df_latest <span class="op">=</span> df_dev[df_dev[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2023</span>].dropna(subset<span class="op">=</span>[<span class="st">"digital_intensity"</span>, <span class="st">"realloc_gap"</span>])</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> df_latest[<span class="st">"digital_intensity"</span>]</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_latest[<span class="st">"realloc_gap"</span>]</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, alpha<span class="op">=</span><span class="fl">0.6</span>, color<span class="op">=</span><span class="st">"#1f77b4"</span>, label<span class="op">=</span><span class="st">"Countries"</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple OLS trend line</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>m, b <span class="op">=</span> np.polyfit(x, y, <span class="dv">1</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>plt.plot(x, m<span class="op">*</span>x <span class="op">+</span> b, color<span class="op">=</span><span class="st">"#e67e22"</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"Trend line"</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Digital Adoption and Structural Reallocation (Developing Economies, 2023)"</span>, fontsize<span class="op">=</span><span class="dv">13</span>, pad<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Digital Intensity (0–1 index)"</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Reallocation Gap (Services − Agriculture </span><span class="sc">% o</span><span class="st">f GDP)"</span>)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>plt.grid(alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>plt.legend(frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="AssignmentFinal_1_files/figure-html/cell-8-output-1.png" width="758" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion-1" class="level2">
+<h2 class="anchored" data-anchor-id="discussion-1">Discussion</h2>
+<p>This 2023 cross-section shows a clear upward slope indicating that countries with higher digital adoption tend to have a wider services-over-agriculture gap, i.e., more service-centred economies. Resource-heavy or shock-exposed economies sit off the line, so the scatter is not perfect, but the main trend is clear. In plain terms, better connectivity goes hand-in-hand with deeper structural reallocation toward services, aligning directly with the research question and highlighting where lagging digital access may be holding back reallocation.</p>
+<div id="72ac9442" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#3 Boxplot</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1990 vs 2023 snapshot</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>snap <span class="op">=</span> df_dev[df_dev[<span class="st">"year"</span>].isin([<span class="dv">1990</span>, <span class="dv">2023</span>])].copy()</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, var, title <span class="kw">in</span> <span class="bu">zip</span>(</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    axes,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"agr_share"</span>, <span class="st">"srv_share"</span>],</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Agriculture share of GDP"</span>, <span class="st">"Services share of GDP"</span>]</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    data_1990 <span class="op">=</span> snap.loc[snap[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">1990</span>, var].dropna()</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    data_2023 <span class="op">=</span> snap.loc[snap[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2023</span>, var].dropna()</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    bp <span class="op">=</span> ax.boxplot([data_1990, data_2023],</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>                    labels<span class="op">=</span>[<span class="st">"1990"</span>, <span class="st">"2023"</span>],</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>                    widths<span class="op">=</span><span class="fl">0.6</span>,</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>                    showmeans<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># neat y-label and title</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"</span><span class="sc">% o</span><span class="st">f GDP"</span>)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"</span><span class="sc">{</span>title<span class="sc">}</span><span class="ss">: 1990 vs 2023"</span>)</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># annotate medians (quick, helpful)</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, data <span class="kw">in</span> <span class="bu">enumerate</span>([data_1990, data_2023], start<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        med <span class="op">=</span> np.median(data)</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>        ax.text(i, med, <span class="ss">f"</span><span class="sc">{</span>med<span class="sc">:.1f}</span><span class="ss">%"</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"bottom"</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">"Distribution Shift in Sector Shares (Developing Economies)"</span>, y<span class="op">=</span><span class="fl">1.03</span>)</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\johan\AppData\Local\Temp\ipykernel_28092\3054355625.py:17: MatplotlibDeprecationWarning: The 'labels' parameter of boxplot() has been renamed 'tick_labels' since Matplotlib 3.9; support for the old name will be dropped in 3.11.
+  bp = ax.boxplot([data_1990, data_2023],
+C:\Users\johan\AppData\Local\Temp\ipykernel_28092\3054355625.py:17: MatplotlibDeprecationWarning: The 'labels' parameter of boxplot() has been renamed 'tick_labels' since Matplotlib 3.9; support for the old name will be dropped in 3.11.
+  bp = ax.boxplot([data_1990, data_2023],</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="AssignmentFinal_1_files/figure-html/cell-9-output-2.png" width="950" height="499" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="discussion-2" class="level3">
+<h3 class="anchored" data-anchor-id="discussion-2">Discussion</h3>
+<p>The boxplots show a broad, economy-wide shift. In 1990 the median agriculture share sits around 22%; by 2023 it’s near 11%, and the high-agriculture tail collapses with hardly any countries now sitting above 30–35%. The services distribution moves the other way. The median rises from about 43% to 51%, and many more countries reach 60%+ (with the upper whisker pushing into the high-70s). In short, this isn’t a story of a few outliers, most developing economies have moved away from agriculture and toward services, consistent with deep, broad-based structural change.</p>
+<div id="e3bd25eb" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#4 Quadrant </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare Data </span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prepare_data(df_dev, year_sel):</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    cols <span class="op">=</span> [<span class="st">"country"</span>, <span class="st">"iso3c"</span>, <span class="st">"year"</span>, <span class="st">"digital_intensity"</span>, <span class="st">"realloc_gap"</span>]</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (df_dev[df_dev[<span class="st">"year"</span>] <span class="op">==</span> year_sel][cols]</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>            .dropna(subset<span class="op">=</span>[<span class="st">"digital_intensity"</span>, <span class="st">"realloc_gap"</span>])</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>            .copy())</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Quadrant Thresholds</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_quadrants(y):</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    x_med <span class="op">=</span> y[<span class="st">"digital_intensity"</span>].median()</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    y_med <span class="op">=</span> y[<span class="st">"realloc_gap"</span>].median()</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    counts <span class="op">=</span> {</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Leaders"</span>: ((y[<span class="st">"digital_intensity"</span>] <span class="op">&gt;=</span> x_med) <span class="op">&amp;</span> (y[<span class="st">"realloc_gap"</span>] <span class="op">&gt;=</span> y_med)).<span class="bu">sum</span>(),</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Realloc &gt; Digital"</span>: ((y[<span class="st">"digital_intensity"</span>] <span class="op">&lt;</span> x_med) <span class="op">&amp;</span> (y[<span class="st">"realloc_gap"</span>] <span class="op">&gt;=</span> y_med)).<span class="bu">sum</span>(),</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Early stage"</span>: ((y[<span class="st">"digital_intensity"</span>] <span class="op">&lt;</span> x_med) <span class="op">&amp;</span> (y[<span class="st">"realloc_gap"</span>] <span class="op">&lt;</span> y_med)).<span class="bu">sum</span>(),</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Digital &gt; Realloc"</span>: ((y[<span class="st">"digital_intensity"</span>] <span class="op">&gt;=</span> x_med) <span class="op">&amp;</span> (y[<span class="st">"realloc_gap"</span>] <span class="op">&lt;</span> y_med)).<span class="bu">sum</span>(),</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x_med, y_med, counts</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting Function </span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_quadrants(y, x_med, y_med, counts):</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>    ax.axvline(x_med, color<span class="op">=</span><span class="st">"grey"</span>, lw<span class="op">=</span><span class="dv">1</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>    ax.axhline(y_med, color<span class="op">=</span><span class="st">"grey"</span>, lw<span class="op">=</span><span class="dv">1</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>    ax.axvspan(<span class="dv">0</span>, x_med, ymin<span class="op">=</span><span class="dv">0</span>, ymax<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">"0.9"</span>, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>    ax.axhspan(<span class="dv">0</span>, y_med, xmin<span class="op">=</span><span class="dv">0</span>, xmax<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">"0.95"</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Scatter plot</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>    ax.scatter(y[<span class="st">"digital_intensity"</span>], y[<span class="st">"realloc_gap"</span>], s<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.85</span>)</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Highlight South Africa</span></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>    sa <span class="op">=</span> y[y[<span class="st">"iso3c"</span>] <span class="op">==</span> <span class="st">"ZAF"</span>]</span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> sa.empty:</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>        ax.scatter(sa[<span class="st">"digital_intensity"</span>], sa[<span class="st">"realloc_gap"</span>],</span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>                   s<span class="op">=</span><span class="dv">160</span>, marker<span class="op">=</span><span class="st">"*"</span>, edgecolor<span class="op">=</span><span class="st">"k"</span>, linewidth<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">"South Africa"</span>)</span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>        ax.text(<span class="bu">float</span>(sa[<span class="st">"digital_intensity"</span>]) <span class="op">+</span> <span class="fl">0.01</span>,</span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>                <span class="bu">float</span>(sa[<span class="st">"realloc_gap"</span>]) <span class="op">+</span> <span class="fl">0.8</span>,</span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>                <span class="st">"South Africa"</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Label extremes</span></span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>    to_label <span class="op">=</span> (pd.concat([</span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a>                    y.nlargest(<span class="dv">2</span>, <span class="st">"digital_intensity"</span>),</span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a>                    y.nsmallest(<span class="dv">2</span>, <span class="st">"digital_intensity"</span>),</span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a>                    y.nlargest(<span class="dv">2</span>, <span class="st">"realloc_gap"</span>),</span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>                    y.nsmallest(<span class="dv">2</span>, <span class="st">"realloc_gap"</span>),</span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a>                ])</span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a>                .drop_duplicates(<span class="st">"iso3c"</span>))</span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _, r <span class="kw">in</span> to_label.iterrows():</span>
+<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a>        ax.text(r[<span class="st">"digital_intensity"</span>] <span class="op">+</span> <span class="fl">0.01</span>, r[<span class="st">"realloc_gap"</span>] <span class="op">+</span> <span class="fl">0.6</span>,</span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>                r[<span class="st">"country"</span>], fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Titles &amp; axes</span></span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"Digital Adoption vs Structural Reallocation (Developing Economies, </span><span class="sc">{</span>year_sel<span class="sc">}</span><span class="ss">)"</span>, pad<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Digital Intensity (0–1 index)"</span>)</span>
+<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"Reallocation Gap: Services − Agriculture (</span><span class="sc">% o</span><span class="st">f GDP)"</span>)</span>
+<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Quadrant captions</span></span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a>    ax.text(<span class="fl">0.9</span>, <span class="fl">0.93</span>, <span class="ss">f"Leaders</span><span class="ch">\n</span><span class="ss">n=</span><span class="sc">{</span>counts[<span class="st">'Leaders'</span>]<span class="sc">}</span><span class="ss">"</span>, transform<span class="op">=</span>ax.transAxes, ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a>    ax.text(<span class="fl">0.25</span>, <span class="fl">0.93</span>, <span class="ss">f"Realloc &gt; Digital</span><span class="ch">\n</span><span class="ss">n=</span><span class="sc">{</span>counts[<span class="st">'Realloc &gt; Digital'</span>]<span class="sc">}</span><span class="ss">"</span>, transform<span class="op">=</span>ax.transAxes, ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a>    ax.text(<span class="fl">0.1</span>, <span class="fl">0.07</span>, <span class="ss">f"Early stage</span><span class="ch">\n</span><span class="ss">n=</span><span class="sc">{</span>counts[<span class="st">'Early stage'</span>]<span class="sc">}</span><span class="ss">"</span>, transform<span class="op">=</span>ax.transAxes, ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a>    ax.text(<span class="fl">0.75</span>, <span class="fl">0.07</span>, <span class="ss">f"Digital &gt; Realloc</span><span class="ch">\n</span><span class="ss">n=</span><span class="sc">{</span>counts[<span class="st">'Digital &gt; Realloc'</span>]<span class="sc">}</span><span class="ss">"</span>, transform<span class="op">=</span>ax.transAxes, ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Small note with thresholds</span></span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a>    ax.text(<span class="fl">0.01</span>, <span class="fl">0.01</span>, <span class="ss">f"Medians: digital=</span><span class="sc">{</span>x_med<span class="sc">:.2f}</span><span class="ss">, gap=</span><span class="sc">{</span>y_med<span class="sc">:.1f}</span><span class="ss"> pp"</span>,</span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a>            transform<span class="op">=</span>ax.transAxes, fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a><span class="co"># Main Execution</span></span>
+<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>year_sel <span class="op">=</span> <span class="dv">2023</span></span>
+<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> prepare_data(df_dev, year_sel)</span>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a>x_med, y_med, counts <span class="op">=</span> calculate_quadrants(y)</span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a>plot_quadrants(y, x_med, y_med, counts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\johan\AppData\Local\Temp\ipykernel_28092\4222764467.py:45: FutureWarning: Calling float on a single element Series is deprecated and will raise a TypeError in the future. Use float(ser.iloc[0]) instead
+  ax.text(float(sa["digital_intensity"]) + 0.01,
+C:\Users\johan\AppData\Local\Temp\ipykernel_28092\4222764467.py:46: FutureWarning: Calling float on a single element Series is deprecated and will raise a TypeError in the future. Use float(ser.iloc[0]) instead
+  float(sa["realloc_gap"]) + 0.8,</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="AssignmentFinal_1_files/figure-html/cell-10-output-2.png" width="851" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="discussion-3" class="level1">
+<h1>Discussion</h1>
+<p>This chart puts digital intensity on the x axis and the services minus agriculture gap on the y axis. The dashed lines mark the sample medians at digital 0.62 and a gap of about 40.9 percentage points. That gives four easy groups.</p>
+<section id="leaders" class="level2">
+<h2 class="anchored" data-anchor-id="leaders">Leaders</h2>
+<p>Top right. High connectivity and a big services lead. This is the largest group with about 40 countries. South Africa sits here with digital near 0.8 and a gap around 60 percentage points.</p>
+</section>
+<section id="realloc-digital" class="level2">
+<h2 class="anchored" data-anchor-id="realloc-digital">Realloc &gt; digital</h2>
+<p>Top left. Strong shift toward services but lagging connectivity. These are good candidates for accelerating broadband coverage and affordability to consolidate gains (e.g., Djibouti as an extreme on the gap).</p>
+</section>
+<section id="digital-realloc" class="level2">
+<h2 class="anchored" data-anchor-id="digital-realloc">Digital &gt; realloc</h2>
+<p>Bottom right. Strong connectivity but the service sector has not yet pulled ahead. This suggests policy or structural frictions in services (regulation, skills, competition) or commodity dependence slowing the shift (e.g., Libya).</p>
+</section>
+<section id="early-stage" class="level2">
+<h2 class="anchored" data-anchor-id="early-stage">Early stage</h2>
+<p>Bottom left. Low on both measures. Priorities are basic infrastructure productivity gains in agriculture and gradual service development.</p>
+<div id="11feb14a" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Additional EDA </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Data Audit</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>key <span class="op">=</span> [<span class="st">"pop"</span>,<span class="st">"gdp_pc"</span>,<span class="st">"agr_share"</span>,<span class="st">"srv_share"</span>,<span class="st">"internet_users"</span>,<span class="st">"mobile_subs"</span>]</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== Sample coverage (developing economies) ==="</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Rows: </span><span class="sc">{</span><span class="bu">len</span>(df_dev)<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Countries: </span><span class="sc">{</span>df_dev[<span class="st">'iso3c'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Years: </span><span class="sc">{</span>df_dev[<span class="st">'year'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss">  |  </span><span class="sc">{</span>df_dev[<span class="st">'year'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">}</span><span class="ss">–</span><span class="sc">{</span>df_dev[<span class="st">'year'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Share missing on key variables (0–1) ==="</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>miss <span class="op">=</span> df_dev[key].isna().mean().sort_values().to_frame(<span class="st">"share_missing"</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(miss)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Countries by income group (unique) ==="</span>)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_dev.drop_duplicates(<span class="st">"iso3c"</span>)[<span class="st">"income_group"</span>].value_counts())</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Countries by region (unique) ==="</span>)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_dev.drop_duplicates(<span class="st">"iso3c"</span>)[<span class="st">"region"</span>].value_counts())</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) 1990-2023 summary table</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>years <span class="op">=</span> [<span class="dv">1990</span>, <span class="dv">2023</span>]</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> (df_dev[df_dev[<span class="st">"year"</span>].isin(years)]</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>           .groupby(<span class="st">"year"</span>)[[<span class="st">"agr_share"</span>,<span class="st">"srv_share"</span>,<span class="st">"gdp_pc"</span>]]</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>           .agg([<span class="st">"mean"</span>,<span class="st">"median"</span>,<span class="st">"std"</span>,<span class="st">"count"</span>])</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>           .<span class="bu">round</span>(<span class="dv">2</span>))</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>delta <span class="op">=</span> (summary.loc[<span class="dv">2023</span>] <span class="op">-</span> summary.loc[<span class="dv">1990</span>]).rename((<span class="st">"Δ_1990→2023"</span>,<span class="st">""</span>))</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Summary (1990 vs 2023):"</span>)</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(summary)</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Change 1990→2023 (pp for shares; US$ for GDPpc):"</span>)</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(delta)</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) 2023 Cross-section</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cross_group(df, by):</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>    cols <span class="op">=</span> [<span class="st">"gdp_pc"</span>,<span class="st">"agr_share"</span>,<span class="st">"srv_share"</span>,<span class="st">"service_ratio"</span>,<span class="st">"realloc_gap"</span>]</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (df[df[<span class="st">"year"</span>]<span class="op">==</span><span class="dv">2023</span>]</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>            .dropna(subset<span class="op">=</span>cols)</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>            .groupby(by)[cols]</span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>            .agg([<span class="st">"mean"</span>,<span class="st">"median"</span>,<span class="st">"std"</span>,<span class="st">"count"</span>])</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>            .<span class="bu">round</span>(<span class="dv">2</span>))</span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"By income group (2023):"</span>)</span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cross_group(df_dev, <span class="st">"income_group"</span>))</span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">By region (2023):"</span>)</span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cross_group(df_dev, <span class="st">"region"</span>))</span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="co">#4) Correlation Matrix (2023)</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [<span class="st">"gdp_pc"</span>,<span class="st">"agr_share"</span>,<span class="st">"srv_share"</span>,<span class="st">"service_ratio"</span>,<span class="st">"realloc_gap"</span>]</span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>corr23 <span class="op">=</span> (df_dev[df_dev[<span class="st">"year"</span>]<span class="op">==</span><span class="dv">2023</span>][cols]</span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>          .dropna()</span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>          .corr()</span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a>          .<span class="bu">round</span>(<span class="dv">2</span>))</span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Correlations (2023):"</span>)</span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(corr23)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== Sample coverage (developing economies) ===
+Rows: 4,454
+Countries: 131
+Years: 34  |  1990–2023
+
+=== Share missing on key variables (0–1) ===
+                share_missing
+pop                  0.000000
+gdp_pc               0.030759
+mobile_subs          0.036147
+agr_share            0.096318
+srv_share            0.125730
+internet_users       0.165245
+
+=== Countries by income group (unique) ===
+income_group
+Upper Middle Income    54
+Lower Middle Income    50
+Low Income             25
+Nan                     2
+Name: count, dtype: int64
+
+=== Countries by region (unique) ===
+region
+Sub-Saharan Africa            47
+Latin America &amp; Caribbean     23
+East Asia &amp; Pacific           22
+Europe &amp; Central Asia         18
+Middle East &amp; North Africa    15
+South Asia                     6
+Name: count, dtype: int64
+Summary (1990 vs 2023):
+     agr_share                     srv_share                       gdp_pc  \
+          mean median    std count      mean median    std count     mean   
+year                                                                        
+1990     23.29  21.89  12.51    95     43.36  43.45  10.68    86  1248.45   
+2023     13.76  11.29   9.37   119     51.71  51.11  10.30   119  4687.85   
+
+                              
+       median      std count  
+year                          
+1990   876.07  1374.06   122  
+2023  3756.57  3698.67   124  
+
+Change 1990→2023 (pp for shares; US$ for GDPpc):
+agr_share  mean        -9.53
+           median     -10.60
+           std         -3.14
+           count       24.00
+srv_share  mean         8.35
+           median       7.66
+           std         -0.38
+           count       33.00
+gdp_pc     mean      3439.40
+           median    2880.50
+           std       2324.61
+           count        2.00
+Name: (Δ_1990→2023, ), dtype: float64
+By income group (2023):
+                      gdp_pc                         agr_share               \
+                        mean   median      std count      mean median   std   
+income_group                                                                  
+Low Income            749.35   797.28   239.62    19     27.43  28.61  6.00   
+Lower Middle Income  2557.37  2453.86  1015.13    46     15.06  15.27  7.49   
+Upper Middle Income  8276.98  7643.18  2841.02    52      7.42   6.99  4.00   
+
+                          srv_share                     service_ratio         \
+                    count      mean median    std count          mean median   
+income_group                                                                   
+Low Income             19     43.21  43.64   6.18    19          0.61   0.61   
+Lower Middle Income    46     50.64  50.67  10.00    46          0.77   0.76   
+Upper Middle Income    52     55.69  57.39   9.42    52          0.88   0.89   
+
+                                realloc_gap                      
+                      std count        mean median    std count  
+income_group                                                     
+Low Income           0.07    19       15.78  14.91   9.71    19  
+Lower Middle Income  0.11    46       35.58  33.84  14.71    46  
+Upper Middle Income  0.06    52       48.27  50.60  10.69    52  
+
+By region (2023):
+                             gdp_pc                         agr_share         \
+                               mean   median      std count      mean median   
+region                                                                         
+East Asia &amp; Pacific         5074.62  4330.18  3184.00    17     14.10  12.53   
+Europe &amp; Central Asia       7790.77  8178.96  3481.24    18      8.87   7.15   
+Latin America &amp; Caribbean   7831.08  7000.84  3686.25    21      8.25   8.00   
+Middle East &amp; North Africa  3855.56  3860.91  1689.99    12     10.68   9.97   
+South Asia                  4438.69  3174.95  4069.17     6     12.78  12.98   
+Sub-Saharan Africa          2288.97  1394.18  2384.24    43     19.13  20.94   
+
+                                        srv_share                      \
+                              std count      mean median    std count   
+region                                                                  
+East Asia &amp; Pacific          5.08    17     52.50  53.42  11.21    17   
+Europe &amp; Central Asia        5.46    18     52.78  55.02   8.04    18   
+Latin America &amp; Caribbean    4.24    21     57.40  58.32   7.21    21   
+Middle East &amp; North Africa   9.93    12     50.67  49.52  12.55    12   
+South Asia                   5.88     6     56.52  54.03   7.80     6   
+Sub-Saharan Africa          10.63    43     47.69  47.53  10.03    43   
+
+                           service_ratio                    realloc_gap  \
+                                    mean median   std count        mean   
+region                                                                    
+East Asia &amp; Pacific                 0.79   0.78  0.07    17       38.40   
+Europe &amp; Central Asia               0.86   0.88  0.09    18       43.91   
+Latin America &amp; Caribbean           0.87   0.88  0.07    21       49.15   
+Middle East &amp; North Africa          0.84   0.85  0.12    12       39.99   
+South Asia                          0.82   0.80  0.08     6       43.74   
+Sub-Saharan Africa                  0.72   0.70  0.14    43       28.57   
+
+                                                
+                           median    std count  
+region                                          
+East Asia &amp; Pacific         43.39  12.42    17  
+Europe &amp; Central Asia       49.28  12.35    18  
+Latin America &amp; Caribbean   50.63  10.63    21  
+Middle East &amp; North Africa  40.81  16.27    12  
+South Asia                  38.91  12.57     6  
+Sub-Saharan Africa          25.09  18.30    43  
+Correlations (2023):
+               gdp_pc  agr_share  srv_share  service_ratio  realloc_gap
+gdp_pc           1.00      -0.69       0.47           0.71         0.66
+agr_share       -0.69       1.00      -0.50          -0.97        -0.85
+srv_share        0.47      -0.50       1.00           0.65         0.88
+service_ratio    0.71      -0.97       0.65           1.00         0.93
+realloc_gap      0.66      -0.85       0.88           0.93         1.00</code></pre>
+</div>
+</div>
+<div id="2429e240" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [<span class="st">"gdp_pc"</span>,<span class="st">"agr_share"</span>,<span class="st">"srv_share"</span>,<span class="st">"service_ratio"</span>,<span class="st">"realloc_gap"</span>]</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>panel <span class="op">=</span> df_dev.dropna(subset<span class="op">=</span>cols).copy()</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># (A) Between-country</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>between_df <span class="op">=</span> panel.groupby(<span class="st">"iso3c"</span>)[cols].mean()</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>corr_between <span class="op">=</span> between_df.corr().<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Between-country correlations (country means, 1990–2023):"</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(corr_between)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># (B) Within-country</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>within <span class="op">=</span> panel.copy()</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>within[cols] <span class="op">=</span> within.groupby(<span class="st">"iso3c"</span>)[cols].transform(<span class="kw">lambda</span> x: x <span class="op">-</span> x.mean())</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>corr_within <span class="op">=</span> within[cols].corr().<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Within-country correlations (demeaned, 1990–2023):"</span>)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(corr_within)</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>year_means <span class="op">=</span> panel.groupby(<span class="st">"year"</span>)[cols].mean()</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Correlations of yearly means (1990–2023):"</span>)</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(year_means.corr().<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Between-country correlations (country means, 1990–2023):
+               gdp_pc  agr_share  srv_share  service_ratio  realloc_gap
+gdp_pc           1.00      -0.73       0.41           0.75         0.65
+agr_share       -0.73       1.00      -0.52          -0.97        -0.88
+srv_share        0.41      -0.52       1.00           0.66         0.87
+service_ratio    0.75      -0.97       0.66           1.00         0.94
+realloc_gap      0.65      -0.88       0.87           0.94         1.00
+
+Within-country correlations (demeaned, 1990–2023):
+               gdp_pc  agr_share  srv_share  service_ratio  realloc_gap
+gdp_pc           1.00      -0.36       0.25           0.43         0.36
+agr_share       -0.36       1.00      -0.41          -0.91        -0.81
+srv_share        0.25      -0.41       1.00           0.68         0.86
+service_ratio    0.43      -0.91       0.68           1.00         0.93
+realloc_gap      0.36      -0.81       0.86           0.93         1.00
+
+Correlations of yearly means (1990–2023):
+               gdp_pc  agr_share  srv_share  service_ratio  realloc_gap
+gdp_pc           1.00      -0.90       0.88           0.90         0.90
+agr_share       -0.90       1.00      -0.95          -1.00        -0.99
+srv_share        0.88      -0.95       1.00           0.96         0.99
+service_ratio    0.90      -1.00       0.96           1.00         0.99
+realloc_gap      0.90      -0.99       0.99           0.99         1.00</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="additional-discussion" class="level1">
+<h1>Additional Discussion</h1>
+<section id="coverage-and-missingness" class="level2">
+<h2 class="anchored" data-anchor-id="coverage-and-missingness">Coverage and missingness</h2>
+<p>The panel is broad containing 131 developing economies spanning 1990 to 2023 with 4,454 rows. Core macro series are well populated. Population has no gaps, GDP per capita has about 3 percent missing, mobile about 4 percent. Sector shares have more gaps, especially earlier years, and internet has about 17 percent missing, which is expected for the 1990s. The country mix is balanced across income groups and regions, with the largest block in Sub-Saharan Africa.</p>
+</section>
+<section id="change-from-1990-to-2023" class="level2">
+<h2 class="anchored" data-anchor-id="change-from-1990-to-2023">Change from 1990 to 2023</h2>
+<p>The averages move in the direction of classic structural change. Agriculture falls from about 23.3 percent to 13.8 percent on the mean and from 21.9 to 11.3 percent on the median. Services rise from about 43.4 to 51.7 percent on the mean and from 43.5 to 51.1 percent on the median. GDP per capita increases by roughly 3,440 dollars on the mean and 2,881 dollars on the median. These shifts line up with the idea that growing economies lean more toward services.</p>
+</section>
+<section id="by-income-group" class="level2">
+<h2 class="anchored" data-anchor-id="by-income-group">2023 by income group</h2>
+<p>There is a clear gradient. Low-income countries have high agriculture shares near 27 percent and modest services near 43 percent, with a service ratio around 0.61 and a services minus agriculture gap near 16 percentage points. Lower-middle income sits in the middle with agriculture near 15 percent and a ratio around 0.77. Upper-middle income shows agriculture near 7 percent, services near 56 percent, a ratio around 0.88, and a gap near 48 percentage points. Income and reallocation move together.</p>
+</section>
+<section id="correlations-in-2023" class="level2">
+<h2 class="anchored" data-anchor-id="correlations-in-2023">Correlations in 2023</h2>
+<p>Income is strongly linked to structure. GDP per capita correlates negatively with agriculture at about −0.69 and positively with services and the services minus agriculture gap at about 0.47 and 0.66. The two reallocation measures, service ratio and gap, are almost the same signal with r about 0.93. This warns against putting both in the same model.</p>
+<ol start="5" type="1">
+<li><strong>[15 marks]</strong> Calculate the relevant <strong>summary and other statistics</strong> from the data.</li>
+</ol>
+<div id="a72c06c6" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 5) Summary and Other Statistics</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">80</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"COMPREHENSIVE SUMMARY STATISTICS FOR DEVELOPING ECONOMIES (1990-2023)"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">80</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># --- A. Basic Dataset Overview ---</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">### A. DATASET OVERVIEW ###</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total observations: </span><span class="sc">{</span><span class="bu">len</span>(df_dev)<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of countries: </span><span class="sc">{</span>df_dev[<span class="st">'iso3c'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Time period: </span><span class="sc">{</span>df_dev[<span class="st">'year'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">}</span><span class="ss">–</span><span class="sc">{</span>df_dev[<span class="st">'year'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total years covered: </span><span class="sc">{</span>df_dev[<span class="st">'year'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Income group distribution:"</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_dev.groupby(<span class="st">'income_group'</span>)[<span class="st">'iso3c'</span>].nunique().to_frame(<span class="st">'n_countries'</span>))</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="co"># --- B. Missing Data Analysis ---</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">### B. MISSING DATA ANALYSIS ###</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>key_vars <span class="op">=</span> [<span class="st">"pop"</span>, <span class="st">"gdp_pc"</span>, <span class="st">"agr_share"</span>, <span class="st">"srv_share"</span>, <span class="st">"internet_users"</span>, </span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"mobile_subs"</span>, <span class="st">"digital_intensity"</span>, <span class="st">"realloc_gap"</span>]</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>missing_stats <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Missing_Count'</span>: df_dev[key_vars].isna().<span class="bu">sum</span>(),</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Missing_Percent'</span>: (df_dev[key_vars].isna().<span class="bu">sum</span>() <span class="op">/</span> <span class="bu">len</span>(df_dev) <span class="op">*</span> <span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">2</span>),</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Available_Count'</span>: df_dev[key_vars].notna().<span class="bu">sum</span>()</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(missing_stats.sort_values(<span class="st">'Missing_Percent'</span>, ascending<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>================================================================================
+COMPREHENSIVE SUMMARY STATISTICS FOR DEVELOPING ECONOMIES (1990-2023)
+================================================================================
+
+### A. DATASET OVERVIEW ###
+
+Total observations: 4,454
+Number of countries: 131
+Time period: 1990–2023
+Total years covered: 34
+
+Income group distribution:
+                     n_countries
+income_group                    
+Low Income                    25
+Lower Middle Income           50
+Nan                            2
+Upper Middle Income           54
+
+### B. MISSING DATA ANALYSIS ###
+
+                   Missing_Count  Missing_Percent  Available_Count
+internet_users               736            16.52             3718
+srv_share                    560            12.57             3894
+realloc_gap                  560            12.57             3894
+agr_share                    429             9.63             4025
+mobile_subs                  161             3.61             4293
+gdp_pc                       137             3.08             4317
+digital_intensity            108             2.42             4346
+pop                            0             0.00             4454</code></pre>
+</div>
+</div>
+<div id="bb16c201" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- C. Descriptive Statistics for Key Variables ---</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">### C. DESCRIPTIVE STATISTICS (All Years) ###</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>desc_vars <span class="op">=</span> [<span class="st">"gdp_pc"</span>, <span class="st">"agr_share"</span>, <span class="st">"srv_share"</span>, <span class="st">"digital_intensity"</span>, </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">"realloc_gap"</span>, <span class="st">"internet_users"</span>, <span class="st">"mobile_subs"</span>]</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>desc_stats <span class="op">=</span> df_dev[desc_vars].describe().T</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>desc_stats[<span class="st">'cv'</span>] <span class="op">=</span> (desc_stats[<span class="st">'std'</span>] <span class="op">/</span> desc_stats[<span class="st">'mean'</span>]).<span class="bu">round</span>(<span class="dv">3</span>)  <span class="co"># Coefficient of variation</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>desc_stats[<span class="st">'range'</span>] <span class="op">=</span> desc_stats[<span class="st">'max'</span>] <span class="op">-</span> desc_stats[<span class="st">'min'</span>]</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(desc_stats.<span class="bu">round</span>(<span class="dv">2</span>))</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># --- D. Time-Period Comparison (First vs Last Decade) ---</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">### D. STRUCTURAL CHANGE: 1990s vs 2020s ###</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>early <span class="op">=</span> df_dev[df_dev[<span class="st">'year'</span>].between(<span class="dv">1990</span>, <span class="dv">1999</span>)]</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>late <span class="op">=</span> df_dev[df_dev[<span class="st">'year'</span>].between(<span class="dv">2020</span>, <span class="dv">2023</span>)]</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>comparison <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'1990s_Mean'</span>: early[[<span class="st">'agr_share'</span>, <span class="st">'srv_share'</span>, <span class="st">'gdp_pc'</span>, <span class="st">'digital_intensity'</span>]].mean(),</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">'2020s_Mean'</span>: late[[<span class="st">'agr_share'</span>, <span class="st">'srv_share'</span>, <span class="st">'gdp_pc'</span>, <span class="st">'digital_intensity'</span>]].mean()</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>comparison[<span class="st">'Absolute_Change'</span>] <span class="op">=</span> comparison[<span class="st">'2020s_Mean'</span>] <span class="op">-</span> comparison[<span class="st">'1990s_Mean'</span>]</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>comparison[<span class="st">'Percent_Change'</span>] <span class="op">=</span> ((comparison[<span class="st">'2020s_Mean'</span>] <span class="op">/</span> comparison[<span class="st">'1990s_Mean'</span>] <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> <span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(comparison.<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+### C. DESCRIPTIVE STATISTICS (All Years) ###
+
+                    count     mean      std    min     25%      50%      75%  \
+gdp_pc             4317.0  2659.02  2734.56  22.95  688.68  1560.36  3796.52   
+agr_share          4025.0    17.20    11.41   0.80    8.08    14.78    24.31   
+srv_share          3894.0    49.02    11.07   6.45   41.85    49.23    56.15   
+digital_intensity  4346.0     0.20     0.23   0.00    0.00     0.09     0.36   
+realloc_gap        3894.0    32.11    19.35 -61.18   20.28    33.33    46.17   
+internet_users     3718.0    19.76    24.73   0.00    0.60     7.30    32.68   
+mobile_subs        4293.0    45.03    49.00   0.00    0.24    25.37    85.75   
+
+                        max    cv     range  
+gdp_pc             18210.56  1.03  18187.60  
+agr_share             79.04  0.66     78.24  
+srv_share             94.15  0.23     87.70  
+digital_intensity      0.96  1.15      0.96  
+realloc_gap           92.75  0.60    153.93  
+internet_users        97.69  1.25     97.69  
+mobile_subs          207.28  1.09    207.28  
+
+### D. STRUCTURAL CHANGE: 1990s vs 2020s ###
+
+                   1990s_Mean  2020s_Mean  Absolute_Change  Percent_Change
+agr_share               21.75       14.41            -7.34           -33.7
+srv_share               45.06       51.61             6.56            14.6
+gdp_pc                1318.36     4198.77          2880.41           218.5
+digital_intensity        0.00        0.52             0.52         27277.6</code></pre>
+</div>
+</div>
+<div id="0bab85e5" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- E. Regional Breakdown ---</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">### E. REGIONAL STATISTICS (Latest Available Year) ###</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>latest_year <span class="op">=</span> df_dev[<span class="st">'year'</span>].<span class="bu">max</span>()</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>regional <span class="op">=</span> (df_dev[df_dev[<span class="st">'year'</span>] <span class="op">==</span> latest_year]</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>            .groupby(<span class="st">'region'</span>)[[<span class="st">'agr_share'</span>, <span class="st">'srv_share'</span>, <span class="st">'digital_intensity'</span>, <span class="st">'gdp_pc'</span>]]</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>            .agg([<span class="st">'mean'</span>, <span class="st">'median'</span>, <span class="st">'std'</span>])</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>            .<span class="bu">round</span>(<span class="dv">2</span>))</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(regional)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co"># --- F. Income Group Analysis ---</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">### F. INCOME GROUP STATISTICS (Latest Available Year) ###</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>income_stats <span class="op">=</span> (df_dev[df_dev[<span class="st">'year'</span>] <span class="op">==</span> latest_year]</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>                .groupby(<span class="st">'income_group'</span>)[[<span class="st">'agr_share'</span>, <span class="st">'srv_share'</span>, <span class="st">'digital_intensity'</span>, <span class="st">'realloc_gap'</span>]]</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>                .agg([<span class="st">'mean'</span>, <span class="st">'median'</span>, <span class="st">'count'</span>])</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>                .<span class="bu">round</span>(<span class="dv">2</span>))</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(income_stats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+### E. REGIONAL STATISTICS (Latest Available Year) ###
+
+                           agr_share               srv_share                \
+                                mean median    std      mean median    std   
+region                                                                       
+East Asia &amp; Pacific            14.10  12.53   5.08     52.50  53.42  11.21   
+Europe &amp; Central Asia           8.87   7.15   5.46     52.78  55.02   8.04   
+Latin America &amp; Caribbean       7.94   7.73   4.39     57.98  58.47   7.53   
+Middle East &amp; North Africa     10.68   9.97   9.93     50.67  49.52  12.55   
+South Asia                     12.78  12.98   5.88     56.52  54.03   7.80   
+Sub-Saharan Africa             19.50  21.38  10.81     47.45  47.02  10.04   
+
+                           digital_intensity                gdp_pc           \
+                                        mean median   std     mean   median   
+region                                                                        
+East Asia &amp; Pacific                     0.63   0.63  0.17  4780.12  4323.35   
+Europe &amp; Central Asia                   0.73   0.72  0.08  7790.77  8178.96   
+Latin America &amp; Caribbean               0.67   0.70  0.12  7831.08  7000.84   
+Middle East &amp; North Africa              0.59   0.64  0.22  3612.08  3624.59   
+South Asia                              0.59   0.59  0.14  4438.69  3174.95   
+Sub-Saharan Africa                      0.42   0.41  0.17  2250.53  1362.45   
+
+                                     
+                                std  
+region                               
+East Asia &amp; Pacific         3015.07  
+Europe &amp; Central Asia       3481.24  
+Latin America &amp; Caribbean   3686.25  
+Middle East &amp; North Africa  1749.65  
+South Asia                  4069.17  
+Sub-Saharan Africa          2370.11  
+
+### F. INCOME GROUP STATISTICS (Latest Available Year) ###
+
+                    agr_share              srv_share               \
+                         mean median count      mean median count   
+income_group                                                        
+Low Income              27.43  28.61    19     43.21  43.64    19   
+Lower Middle Income     15.06  15.27    46     50.64  50.67    46   
+Nan                     35.79  35.79     1     36.98  36.98     1   
+Upper Middle Income      7.30   6.89    53     55.96  57.58    53   
+
+                    digital_intensity              realloc_gap               
+                                 mean median count        mean median count  
+income_group                                                                 
+Low Income                       0.28   0.25    22       15.78  14.91    19  
+Lower Middle Income              0.53   0.52    48       35.58  33.84    46  
+Nan                              0.34   0.34     1        1.19   1.19     1  
+Upper Middle Income              0.73   0.73    52       48.66  50.63    53  </code></pre>
+</div>
+</div>
+<div id="09f3112a" class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- I. Correlation Analysis ---</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">### I. KEY CORRELATIONS ###</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>corr_vars <span class="op">=</span> [<span class="st">'digital_intensity'</span>, <span class="st">'agr_share'</span>, <span class="st">'srv_share'</span>, <span class="st">'realloc_gap'</span>, </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">'log_gdp_pc'</span>, <span class="st">'service_ratio'</span>]</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>correlations <span class="op">=</span> df_dev[corr_vars].corr()[<span class="st">'digital_intensity'</span>].sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(correlations.<span class="bu">round</span>(<span class="dv">3</span>))</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># --- J. Growth Rate Statistics ---</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">### J. AVERAGE ANNUAL GROWTH RATES (% per year) ###</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>growth_stats <span class="op">=</span> (df_dev.groupby(<span class="st">'country'</span>)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>                .<span class="bu">apply</span>(<span class="kw">lambda</span> g: pd.Series({</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'digital_growth_mean'</span>: g[<span class="st">'digital_growth'</span>].mean(),</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'srv_share_cagr'</span>: ((g[<span class="st">'srv_share'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">/</span> g[<span class="st">'srv_share'</span>].iloc[<span class="dv">0</span>]) <span class="op">**</span> </span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>                                       (<span class="dv">1</span> <span class="op">/</span> (g[<span class="st">'year'</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> g[<span class="st">'year'</span>].iloc[<span class="dv">0</span>])) <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>                                       <span class="cf">if</span> <span class="bu">len</span>(g) <span class="op">&gt;</span> <span class="dv">1</span> <span class="kw">and</span> g[<span class="st">'srv_share'</span>].iloc[<span class="dv">0</span>] <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> np.nan</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>                }))</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>                .describe()</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>                .<span class="bu">round</span>(<span class="dv">2</span>))</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(growth_stats)</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="co"># --- K. Data Quality Summary ---</span></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">### K. DATA COMPLETENESS BY DECADE ###</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>df_dev[<span class="st">'decade'</span>] <span class="op">=</span> (df_dev[<span class="st">'year'</span>] <span class="op">//</span> <span class="dv">10</span>) <span class="op">*</span> <span class="dv">10</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>completeness <span class="op">=</span> (df_dev.groupby(<span class="st">'decade'</span>)[key_vars]</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>                .<span class="bu">apply</span>(<span class="kw">lambda</span> x: (x.notna().<span class="bu">sum</span>() <span class="op">/</span> <span class="bu">len</span>(x) <span class="op">*</span> <span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>))</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>                .T)</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(completeness)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+### I. KEY CORRELATIONS ###
+
+digital_intensity    1.000
+log_gdp_pc           0.659
+service_ratio        0.460
+realloc_gap          0.440
+srv_share            0.328
+agr_share           -0.438
+Name: digital_intensity, dtype: float64
+
+### J. AVERAGE ANNUAL GROWTH RATES (% per year) ###
+
+       digital_growth_mean  srv_share_cagr
+count               131.00           82.00
+mean                   inf            0.55
+std                    NaN            0.77
+min                   6.33           -1.45
+25%                    NaN            0.04
+50%                    NaN            0.41
+75%                    NaN            0.85
+max                    inf            2.66
+
+### K. DATA COMPLETENESS BY DECADE ###
+
+decade              1990   2000   2010   2020
+pop                100.0  100.0  100.0  100.0
+gdp_pc              95.5   98.0   97.9   95.4
+agr_share           80.6   92.9   96.3   93.7
+srv_share           74.7   89.2   95.8   93.7
+internet_users      56.7   95.5   95.6   89.9
+mobile_subs         95.2   97.2   98.1   93.1
+digital_intensity   95.3   98.1   99.2   97.9
+realloc_gap         74.7   89.2   95.8   93.7</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\johan\AppData\Local\Temp\ipykernel_28092\3472227282.py:11: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  .apply(lambda g: pd.Series({
+C:\Users\johan\AppData\Local\Programs\Python\Python314\Lib\site-packages\pandas\core\nanops.py:1016: RuntimeWarning: invalid value encountered in subtract
+  sqr = _ensure_numeric((avg - values) ** 2)
+C:\Users\johan\AppData\Local\Programs\Python\Python314\Lib\site-packages\numpy\lib\_function_base_impl.py:4671: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = subtract(b, a)</code></pre>
+</div>
+</div>
+<ol start="6" type="1">
 <li><p><strong>[15 marks]</strong> Create at least two <strong>useful plots</strong> other than those of the exploratory data analysis.</p></li>
 <li><p><strong>[15 marks]</strong> Do a <strong>statistical or regression analysis</strong> of the data, which could be used for your thesis.</p>
 <ul>

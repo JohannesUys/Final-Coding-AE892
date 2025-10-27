@@ -77,8 +77,14 @@ for name, d in {"Population": pop, "GDP per capita": gdp_pc, "Agriculture": agr,
 ```{python}
 # Basic Cleaning 
 YEARS = list(range(1990, 2024))
+pop = pop[pop["year"].isin(YEARS)].copy()
+gdp_pc = gdp_pc[gdp_pc["year"].isin(YEARS)].copy()
+agr = agr[agr["year"].isin(YEARS)].copy()
+srv = srv[srv["year"].isin(YEARS)].copy()
+net = net[net["year"].isin(YEARS)].copy()
+mob = mob[mob["year"].isin(YEARS)].copy()
 
-# Ensure numeric values, Keep only the years we want 
+# Ensure numeric values
 for df in [pop, gdp_pc, agr, srv, net, mob]:
     df = df[df["year"].isin(YEARS)].copy()
     value_col = df.columns[-1]
@@ -108,6 +114,9 @@ df = pop.merge(gdp_pc, on=["country", "iso3c", "year"], how="outer") \
         .merge(srv,     on=["country", "iso3c", "year"], how="outer") \
         .merge(net,     on=["country", "iso3c", "year"], how="outer") \
         .merge(mob,     on=["country", "iso3c", "year"], how="outer")
+        
+# Filter to 1990-2023 
+df = df[df["year"].between(1990, 2023)].copy()
 
 # Tidy column order
 first_cols = ["country", "iso3c", "year"]
@@ -117,6 +126,7 @@ df = df[first_cols + [c for c in df.columns if c not in first_cols]]
 print(f"Rows: {len(df):,}")
 print(f"Countries: {df['iso3c'].nunique()} | Years: {df['year'].nunique()} "
       f"({df['year'].min()}–{df['year'].max()})")
+
 
 # Share missing for key variables (0-1)
 key_vars = ["pop","gdp_pc","agr_share","srv_share","internet_users","mobile_subs"]
@@ -159,6 +169,9 @@ df["income_group"] = (
 # Exclude High-income economies
 df_dev = df[df["income_group"] != "High Income"].copy()
 
+# 1990-2023 range 
+df_dev = df_dev[df_dev["year"].between(1990, 2023)].copy()
+
 # Results
 print(f"Rows after filtering: {len(df_dev):,}")
 print(f"Countries: {df_dev['iso3c'].nunique()} | Years: {df_dev['year'].nunique()} ({df_dev['year'].min()}–{df_dev['year'].max()})")
@@ -169,7 +182,6 @@ df.head(10)
 
 ```
 ---
-
 
 ## Step 3: Once you have joined the data to create `df`, do the following  
 
@@ -197,6 +209,8 @@ df_dev["service_ratio"] = (
     df_dev["srv_share"] /
     (df_dev["srv_share"] + df_dev["agr_share"])
 )
+# Reallocation gap
+df_dev["realloc_gap"] = df_dev["srv_share"] - df_dev["agr_share"]
 
 # Digital adoption growth rate (year-on-year % change per country)
 
@@ -226,7 +240,9 @@ df_dev[df_dev["year"] == 2005]
    - This should include at least three visualisations, but should not be limited to them.  
    - Also, this section requires accompanying text to interpret the results.  
 
-```{python}
+```{python} 
+
+# Plot 1 - Average Structural Change and Digital Adoption
 import matplotlib.pyplot as plt
 
 # Compute yearly averages and restrict to 1990–2023
@@ -273,12 +289,294 @@ plt.show()
 
 ```
 
-5. **[15 marks]** Calculate the relevant **summary and other statistics** from the data.  
+## Discussion 
+ From 1990 to 2023, developing economies steadily moved out of agriculture and into services. The average agriculture share fell from the low 20s to the mid-teens, while services rose from the mid-40s to just above half of GDP. Digital intensity was flat until the mid-2000s, then climbed quickly in the same years that services gained most. The timing and direction lines up with the research question that wider connectivity goes together with a shift toward services, despite brief pauses around the 2008–09 crisis and the 2020–21 pandemic. These are simple country averages, but the pattern is hard to miss.
+```{python}
+# Plot 2 - Digital Adoption vs Reallocation Gap (Developing Economies, 2023)
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Filter for latest year with valid values
+df_latest = df_dev[df_dev["year"] == 2023].dropna(subset=["digital_intensity", "realloc_gap"])
+
+x = df_latest["digital_intensity"]
+y = df_latest["realloc_gap"]
+
+plt.figure(figsize=(8,6))
+plt.scatter(x, y, alpha=0.6, color="#1f77b4", label="Countries")
+
+# Simple OLS trend line
+m, b = np.polyfit(x, y, 1)
+plt.plot(x, m*x + b, color="#e67e22", linewidth=2, label="Trend line")
+
+plt.title("Digital Adoption and Structural Reallocation (Developing Economies, 2023)", fontsize=13, pad=12)
+plt.xlabel("Digital Intensity (0–1 index)")
+plt.ylabel("Reallocation Gap (Services − Agriculture % of GDP)")
+plt.grid(alpha=0.3)
+plt.legend(frameon=False)
+plt.tight_layout()
+plt.show()
+
+```
+## Discussion 
+This 2023 cross-section shows a clear upward slope indicating that countries with higher digital adoption tend to have a wider services-over-agriculture gap, i.e., more service-centred economies. Resource-heavy or shock-exposed economies sit off the line, so the scatter is not perfect, but the main trend is clear. In plain terms, better connectivity goes hand-in-hand with deeper structural reallocation toward services, aligning directly with the research question and highlighting where lagging digital access may be holding back reallocation.
+
+```{python}
+#3 Boxplot
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 1990 vs 2023 snapshot
+snap = df_dev[df_dev["year"].isin([1990, 2023])].copy()
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+
+for ax, var, title in zip(
+    axes,
+    ["agr_share", "srv_share"],
+    ["Agriculture share of GDP", "Services share of GDP"]
+):
+    data_1990 = snap.loc[snap["year"] == 1990, var].dropna()
+    data_2023 = snap.loc[snap["year"] == 2023, var].dropna()
+    bp = ax.boxplot([data_1990, data_2023],
+                    labels=["1990", "2023"],
+                    widths=0.6,
+                    showmeans=True)
+
+    # neat y-label and title
+    ax.set_ylabel("% of GDP")
+    ax.set_title(f"{title}: 1990 vs 2023")
+
+    # annotate medians (quick, helpful)
+    for i, data in enumerate([data_1990, data_2023], start=1):
+        med = np.median(data)
+        ax.text(i, med, f"{med:.1f}%", ha="center", va="bottom", fontsize=9)
+
+fig.suptitle("Distribution Shift in Sector Shares (Developing Economies)", y=1.03)
+fig.tight_layout()
+plt.show()
+
+```
+### Discussion
+The boxplots show a broad, economy-wide shift. In 1990 the median agriculture share sits around 22%; by 2023 it’s near 11%, and the high-agriculture tail collapses with hardly any countries now sitting above 30–35%. The services distribution moves the other way. The median rises from about 43% to 51%, and many more countries reach 60%+ (with the upper whisker pushing into the high-70s). In short, this isn’t a story of a few outliers, most developing economies have moved away from agriculture and toward services, consistent with deep, broad-based structural change.
+```{python}
+#4 Quadrant 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Prepare Data 
+def prepare_data(df_dev, year_sel):
+    cols = ["country", "iso3c", "year", "digital_intensity", "realloc_gap"]
+    return (df_dev[df_dev["year"] == year_sel][cols]
+            .dropna(subset=["digital_intensity", "realloc_gap"])
+            .copy())
+
+# Quadrant Thresholds
+def calculate_quadrants(y):
+    x_med = y["digital_intensity"].median()
+    y_med = y["realloc_gap"].median()
+    
+    counts = {
+        "Leaders": ((y["digital_intensity"] >= x_med) & (y["realloc_gap"] >= y_med)).sum(),
+        "Realloc > Digital": ((y["digital_intensity"] < x_med) & (y["realloc_gap"] >= y_med)).sum(),
+        "Early stage": ((y["digital_intensity"] < x_med) & (y["realloc_gap"] < y_med)).sum(),
+        "Digital > Realloc": ((y["digital_intensity"] >= x_med) & (y["realloc_gap"] < y_med)).sum(),
+    }
+    return x_med, y_med, counts
+
+# Plotting Function 
+def plot_quadrants(y, x_med, y_med, counts):
+    fig, ax = plt.subplots(figsize=(9, 6))
+    
+
+    ax.axvline(x_med, color="grey", lw=1, ls="--")
+    ax.axhline(y_med, color="grey", lw=1, ls="--")
+
+    ax.axvspan(0, x_med, ymin=0, ymax=1, color="0.9", alpha=0.4)
+    ax.axhspan(0, y_med, xmin=0, xmax=1, color="0.95", alpha=0.6)
+
+    # Scatter plot
+    ax.scatter(y["digital_intensity"], y["realloc_gap"], s=30, alpha=0.85)
+
+    # Highlight South Africa
+    sa = y[y["iso3c"] == "ZAF"]
+    if not sa.empty:
+        ax.scatter(sa["digital_intensity"], sa["realloc_gap"],
+                   s=160, marker="*", edgecolor="k", linewidth=0.8, label="South Africa")
+        ax.text(float(sa["digital_intensity"]) + 0.01,
+                float(sa["realloc_gap"]) + 0.8,
+                "South Africa", fontsize=9)
+
+    # Label extremes
+    to_label = (pd.concat([
+                    y.nlargest(2, "digital_intensity"),
+                    y.nsmallest(2, "digital_intensity"),
+                    y.nlargest(2, "realloc_gap"),
+                    y.nsmallest(2, "realloc_gap"),
+                ])
+                .drop_duplicates("iso3c"))
+    for _, r in to_label.iterrows():
+        ax.text(r["digital_intensity"] + 0.01, r["realloc_gap"] + 0.6,
+                r["country"], fontsize=8)
+
+    # Titles & axes
+    ax.set_title(f"Digital Adoption vs Structural Reallocation (Developing Economies, {year_sel})", pad=12)
+    ax.set_xlabel("Digital Intensity (0–1 index)")
+    ax.set_ylabel("Reallocation Gap: Services − Agriculture (% of GDP)")
+
+    # Quadrant captions
+    ax.text(0.9, 0.93, f"Leaders\nn={counts['Leaders']}", transform=ax.transAxes, ha="center", fontsize=10)
+    ax.text(0.25, 0.93, f"Realloc > Digital\nn={counts['Realloc > Digital']}", transform=ax.transAxes, ha="center", fontsize=10)
+    ax.text(0.1, 0.07, f"Early stage\nn={counts['Early stage']}", transform=ax.transAxes, ha="center", fontsize=10)
+    ax.text(0.75, 0.07, f"Digital > Realloc\nn={counts['Digital > Realloc']}", transform=ax.transAxes, ha="center", fontsize=10)
+
+    # Small note with thresholds
+    ax.text(0.01, 0.01, f"Medians: digital={x_med:.2f}, gap={y_med:.1f} pp",
+            transform=ax.transAxes, fontsize=8)
+
+    plt.tight_layout()
+    plt.show()
+
+# Main Execution
+year_sel = 2023
+y = prepare_data(df_dev, year_sel)
+x_med, y_med, counts = calculate_quadrants(y)
+plot_quadrants(y, x_med, y_med, counts)
+```
+# Discussion
+This chart puts digital intensity on the x axis and the services minus agriculture gap on the y axis. The dashed lines mark the sample medians at digital 0.62 and a gap of about 40.9 percentage points. That gives four easy groups.
+
+## Leaders 
+Top right. 
+High connectivity and a big services lead. This is the largest group with about 40 countries. South Africa sits here with digital near 0.8 and a gap around 60 percentage points.
+
+## Realloc > digital 
+Top left. 
+Strong shift toward services but lagging connectivity. These are good candidates for accelerating broadband coverage and affordability to consolidate gains (e.g., Djibouti as an extreme on the gap).
+
+## Digital > realloc 
+Bottom right. 
+Strong connectivity but the service sector has not yet pulled ahead. This suggests policy or structural frictions in services (regulation, skills, competition) or commodity dependence slowing the shift (e.g., Libya).
+
+## Early stage 
+Bottom left. 
+Low on both measures. Priorities are basic infrastructure productivity gains in agriculture and gradual service development.
+```{python}
+# Additional EDA 
+
+# 1) Data Audit
+import pandas as pd
+import numpy as np
+
+key = ["pop","gdp_pc","agr_share","srv_share","internet_users","mobile_subs"]
+
+print("=== Sample coverage (developing economies) ===")
+print(f"Rows: {len(df_dev):,}")
+print(f"Countries: {df_dev['iso3c'].nunique()}")
+print(f"Years: {df_dev['year'].nunique()}  |  {df_dev['year'].min()}–{df_dev['year'].max()}")
+
+print("\n=== Share missing on key variables (0–1) ===")
+miss = df_dev[key].isna().mean().sort_values().to_frame("share_missing")
+print(miss)
+
+print("\n=== Countries by income group (unique) ===")
+print(df_dev.drop_duplicates("iso3c")["income_group"].value_counts())
+
+print("\n=== Countries by region (unique) ===")
+print(df_dev.drop_duplicates("iso3c")["region"].value_counts())
+
+# 2) 1990-2023 summary table
+years = [1990, 2023]
+summary = (df_dev[df_dev["year"].isin(years)]
+           .groupby("year")[["agr_share","srv_share","gdp_pc"]]
+           .agg(["mean","median","std","count"])
+           .round(2))
+delta = (summary.loc[2023] - summary.loc[1990]).rename(("Δ_1990→2023",""))
+print("Summary (1990 vs 2023):")
+print(summary)
+print("\nChange 1990→2023 (pp for shares; US$ for GDPpc):")
+print(delta)
+
+# 3) 2023 Cross-section
+def cross_group(df, by):
+    cols = ["gdp_pc","agr_share","srv_share","service_ratio","realloc_gap"]
+    return (df[df["year"]==2023]
+            .dropna(subset=cols)
+            .groupby(by)[cols]
+            .agg(["mean","median","std","count"])
+            .round(2))
+
+print("By income group (2023):")
+print(cross_group(df_dev, "income_group"))
+
+print("\nBy region (2023):")
+print(cross_group(df_dev, "region"))
+
+#4) Correlation Matrix (2023)
+cols = ["gdp_pc","agr_share","srv_share","service_ratio","realloc_gap"]
+corr23 = (df_dev[df_dev["year"]==2023][cols]
+          .dropna()
+          .corr()
+          .round(2))
+print("Correlations (2023):")
+print(corr23)
+
+```
+
+```{python}
+import pandas as pd
+
+cols = ["gdp_pc","agr_share","srv_share","service_ratio","realloc_gap"]
+
+panel = df_dev.dropna(subset=cols).copy()
+
+# (A) Between-country
+between_df = panel.groupby("iso3c")[cols].mean()
+corr_between = between_df.corr().round(2)
+print("Between-country correlations (country means, 1990–2023):")
+print(corr_between)
+
+# (B) Within-country
+within = panel.copy()
+within[cols] = within.groupby("iso3c")[cols].transform(lambda x: x - x.mean())
+corr_within = within[cols].corr().round(2)
+print("\nWithin-country correlations (demeaned, 1990–2023):")
+print(corr_within)
+
+
+year_means = panel.groupby("year")[cols].mean()
+print("\nCorrelations of yearly means (1990–2023):")
+print(year_means.corr().round(2))
+
+```
+
+# Additional Discussion
+## Coverage and missingness
+
+The panel is broad containing 131 developing economies spanning 1990 to 2023 with 4,454 rows. Core macro series are well populated. Population has no gaps, GDP per capita has about 3 percent missing, mobile about 4 percent. Sector shares have more gaps, especially earlier years, and internet has about 17 percent missing, which is expected for the 1990s. The country mix is balanced across income groups and regions, with the largest block in Sub-Saharan Africa.
+
+## Change from 1990 to 2023
+
+The averages move in the direction of classic structural change. Agriculture falls from about 23.3 percent to 13.8 percent on the mean and from 21.9 to 11.3 percent on the median. Services rise from about 43.4 to 51.7 percent on the mean and from 43.5 to 51.1 percent on the median. GDP per capita increases by roughly 3,440 dollars on the mean and 2,881 dollars on the median. These shifts line up with the idea that growing economies lean more toward services.
+
+## 2023 by income group
+
+There is a clear gradient. Low-income countries have high agriculture shares near 27 percent and modest services near 43 percent, with a service ratio around 0.61 and a services minus agriculture gap near 16 percentage points. Lower-middle income sits in the middle with agriculture near 15 percent and a ratio around 0.77. Upper-middle income shows agriculture near 7 percent, services near 56 percent, a ratio around 0.88, and a gap near 48 percentage points. Income and reallocation move together.
+
+## Correlations in 2023
+
+Income is strongly linked to structure. GDP per capita correlates negatively with agriculture at about −0.69 and positively with services and the services minus agriculture gap at about 0.47 and 0.66. The two reallocation measures, service ratio and gap, are almost the same signal with r about 0.93. This warns against putting both in the same model.
+
+5. **[15 marks]** Calculate the relevant **summary and other statistics** from the data. 
+
 
 6. **[15 marks]** Create at least two **useful plots** other than those of the exploratory data analysis.  
 
 7. **[15 marks]** Do a **statistical or regression analysis** of the data, which could be used for your thesis.  
    - Marks will be given for suitability and originality.  
+
+
 
 8. **[10 marks]** These marks are allocated based on the **overall impression of your code**. The following will be considered:  
    a. Does your code run without a problem?  
